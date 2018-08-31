@@ -4,19 +4,78 @@ const PORT = process.env.PORT || 8002;
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 
+const Articles = require('./db/articles.js');
+//const DB_Articles = new Articles();
+const Products = require('./db/products.js');
+const DB_Products = new Products();
+
 //Tells Express to use a static directory that we define as the location to look for requests
 app.use(express.static("public"));
 
-//For parsing application/x-www-form-urlencoded. 'extended = true' means the object's key-value pairs' value can be any type, not just string or array. It replaces the code needed to parse the buffer for request body and returns the already parsed information/object as "req.body".
+//For parsing application/x-www-form-urlencoded. Returns the already parsed information/object as "req.body".
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //Creates a super simple Express app; basic way to register a Handlebars view engine
 app.engine('.hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }));
 app.set('view engine', '.hbs');
 
+/////////////////////////////////////////
+
+//Render all products
 app.get("/", (req, res) => {
-  res.render("home");
+  const item = DB_Products.all();
+  console.log("\nProducts:", item);
+  res.render("home", { item });
+});
+
+
+//////////////////
+//Product Routes//
+//////////////////
+app.get("/products/new", (req, res) => {
+  console.log("This is GET products - new");
+  //responds with HTML generated from templates. HTML should contain an EMPTY form which a user will be able to create a new product. Form points to your server's route for creating a new product
+  res.render("new");
+});
+
+app.get("/products", (req, res) => {
+  console.log("This is GET products - index");
+  res.render("index");
+});
+
+app.get("/products/:id", (req, res) => {
+  console.log("This is GET products - product");
+  //respond with HTML generated from template that displays the Products info for the product with the corresponding ID
+  res.render("product");
+});
+
+app.get("/products/:id/edit", (req, res) => {
+  console.log("This is GET products - edit");
+  //responds with HTML generated form templates. HTML should contain a form with values already prefilled? so that a user can update the information for a product. The form points to your server's route for editing a product.
+  res.render("edit");
+});
+
+
+
+
+
+
+
+//Render out the product form
+app.get("/product/new", (req, res) => {
+  res.render("productForm");
+});
+
+//POST creates a new product (add)
+app.post("/product/new", (req, res) => {
+  console.log("req.body:", req.body);
+  const product = req.body;
+  DB_Products.add(product);
+  res.redirect('/');
 })
+
+
+
 
 
 

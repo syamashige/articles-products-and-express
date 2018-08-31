@@ -2,8 +2,8 @@ version: '3'
 services:
   my-app:
     image: maymc/articles-products-and-express:${IMAGE_VERSION}-local
-    command: ["./node_modules/.bin/nodemon", "app.js"]
-    container_name: my-app
+    command: ["./node_modules/.bin/nodemon", "server.js"]
+    container_name: articles-products-and-express
     volumes:
       - ".:/app/:rw"
     env_file: .env
