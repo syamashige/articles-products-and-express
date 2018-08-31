@@ -1,0 +1,99 @@
+body{
+    background-color: black;
+    color: white;
+    /* text-align: center; */
+    font-family: 'Poiret One', cursive;
+}
+
+h1{
+    text-align: center;
+    font-size: 45px;
+    text-shadow: 2px 5px darkgrey;
+}
+
+#prodLink, #articlesLink, #createLink {
+    text-decoration: none;
+    color: white;
+    font-size: 30px;
+    text-shadow: 2px 5px darkgrey;
+
+}
+
+#container{
+    /* display: inline-block; */
+    display: flex;
+}
+
+#prodDiv, #articleDiv, #createDiv {
+    /* display: inline-block;
+    d
+    text-align: left;
+    margin-left: 25%; */
+    /* background-color: white; */
+    height: auto;
+    width: 50%;
+    border: 1px solid white; 
+    padding: 20% 10% 20% 10%;
+}
+#prodDiv{
+    background-image: url('/assets/abstract-blue2.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#createDiv {
+    background-image: url('/assets/abstract-blue3.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#articleDiv {
+    background-image: url('/assets/abstract-blue.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.productName {
+    color: white;
+    text-decoration: none;
+}
+
+/* #createForm {
+    text-align: center;
+    margin: 10%;
+} */
+
+#nameLabel, #priceLabel, #inventoryLabel, #descriptLabel {
+  color: white;
+  display: block;
+}
+
+#nameInput{
+    height: 30px;
+    width: 50%;
+}
+
+#priceInput {
+    height: 30px;
+    width: 50%;
+}
+
+#inventoryInput {
+    width: 50%;
+    height: 30px;
+}
+
+#descriptInput{
+    height: 100px;
+    width: 50%;
+    
+}
+
+input[type=text]{
+    border: 1px solid lightskyblue;
+    border-radius: 4px;
+    padding: 0.5% 1% 0.5% 1%;
+    width: 50%;
+    margin: 1%;
+
+}
