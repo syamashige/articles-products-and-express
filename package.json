@@ -18,6 +18,7 @@
   "homepage": "https://github.com/maymc/articles-products-and-express#readme",
   "dependencies": {
     "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
     "npm": "^6.4.1"
   },
   "devDependencies": {
