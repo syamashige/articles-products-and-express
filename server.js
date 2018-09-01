@@ -4,10 +4,10 @@ const PORT = process.env.PORT || 8002;
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 
-const Articles = require('./db/articles.js');
-//const DB_Articles = new Articles();
 const Products = require('./db/products.js');
 const DB_Products = new Products();
+//const Articles = require('./db/articles.js');
+//const DB_Articles = new Articles();
 
 //Tells Express to use a static directory that we define as the location to look for requests
 app.use(express.static("public"));
@@ -21,17 +21,27 @@ app.set('view engine', '.hbs');
 
 /////////////////////////////////////////
 
-//Render all products
-app.get("/", (req, res) => {
-  const item = DB_Products.all();
-  console.log("\nProducts:", item);
-  res.render("home", { item });
-});
-
-
 //////////////////
 //Product Routes//
 //////////////////
+
+//POST '/products'
+app.post("/products", (req, res) => {
+
+});
+
+//PUT '/products/:id'
+app.put("/products/:id", (req, res) => {
+
+});
+
+//DELETE '/products/:id'
+app.delete("/products/:id", (req, res) => {
+
+});
+
+//Product routes below will output HTML generated from TMEPLATE ENGINE
+//GET '/products'
 app.get("/products/new", (req, res) => {
   console.log("This is GET products - new");
   //responds with HTML generated from templates. HTML should contain an EMPTY form which a user will be able to create a new product. Form points to your server's route for creating a new product
@@ -39,8 +49,10 @@ app.get("/products/new", (req, res) => {
 });
 
 app.get("/products", (req, res) => {
-  console.log("This is GET products - index");
-  res.render("index");
+  console.log("\nThis is GET /products - index.hbs");
+  const productItems = DB_Products.all();
+  console.log("productItems:\n", productItems);
+  res.render('index', { productItems });
 });
 
 app.get("/products/:id", (req, res) => {
@@ -56,23 +68,26 @@ app.get("/products/:id/edit", (req, res) => {
 });
 
 
+// //Render all products
+// app.get("/", (req, res) => {
+//   const item = DB_Products.all();
+//   console.log("\nProducts:", item);
+//   res.render("home", { item });
+// });
 
 
+// //Render out the product form
+// app.get("/product/new", (req, res) => {
+//   res.render("productForm");
+// });
 
-
-
-//Render out the product form
-app.get("/product/new", (req, res) => {
-  res.render("productForm");
-});
-
-//POST creates a new product (add)
-app.post("/product/new", (req, res) => {
-  console.log("req.body:", req.body);
-  const product = req.body;
-  DB_Products.add(product);
-  res.redirect('/');
-})
+// //POST creates a new product (add)
+// app.post("/product/new", (req, res) => {
+//   console.log("req.body:", req.body);
+//   const product = req.body;
+//   DB_Products.add(product);
+//   res.redirect('/');
+// })
 
 
 

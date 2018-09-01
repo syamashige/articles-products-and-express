@@ -7,7 +7,19 @@ class Products {
       price: 3.00,
       inventory: 28
     });
+    this.add({
+      name: 'NutterButter',
+      price: 8.50,
+      inventory: 20
+    });
+    this.add({
+      name: 'Ramen',
+      price: 2.50,
+      inventory: 4
+    });
   }
+
+  //Methods
   all() {
     return [...this._productStorage];
   }
