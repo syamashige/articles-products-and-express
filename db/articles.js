@@ -1,24 +1,41 @@
-// const articleCollection = [];
+class Articles {
+  constructor() {
+    this._articleStorage = [];
+    this.add({
+      title: "Russian cuckoos are taking over Alaska",
+      body: "Thanks to climate change, these crybaby parasites are heading to North America.",
+      author: "Kat Eschner",
+    });
+    this.add({
+      title: "Local honey might help your allergies—but only if you believe it will",
+      body: "Eating allergens seems like it should reduce sneezes. In practice? Not so much.",
+      author: "Sara Chodosh",
+    });
+    this.add({
+      title: "Ancient space crystals may prove the sun threw heated tantrums as a tot",
+      body: "You can learn a lot from 4.5-billion-year-old rocks.",
+      author: "Neel V. Patel",
+    });
+  }
 
-// const all = () => {
-//   return articleCollection;
-// }
+  //Methods
+  all() {
+    return [...this._articleStorage];
+  }
 
-// const add = (params) => {
+  getArticleByTitle(title) {
 
-// }
+    let filteredArray = this._articleStorage.filter(element => title == element.title)[0];
+    console.log("filteredArray:\n", filteredArray);
+    return filteredArray;
+  }
 
-// const getByTitle = (title) => {
+  add(article) {
+    article.urlTitle = encodeURI(article.title);
+    this._articleStorage.push(article);
+    return article.urlTitle;
+  }
 
-// }
+}
 
-// const editByTitle = (title) => {
-
-// }
-
-// module.exports = {
-//   all: _all,
-//   add: _add,
-//   getByTitle: _getByTitle,
-//   editByTitle: _editByTitle
-// };
+module.exports = Articles;

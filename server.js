@@ -4,10 +4,11 @@ const PORT = process.env.PORT || 8002;
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 
+
 const Products = require('./db/products.js');
 const DB_Products = new Products();
-//const Articles = require('./db/articles.js');
-//const DB_Articles = new Articles();
+const Articles = require('./db/articles.js');
+const DB_Articles = new Articles();
 
 let error = {
   errorFlag: true,
@@ -23,6 +24,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Creates a super simple Express app; basic way to register a Handlebars view engine
 app.engine('.hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }));
 app.set('view engine', '.hbs');
+
+/////////////////////////////////////////
+
+//Render all products
+app.get("/", (req, res) => {
+  const allProducts = DB_Products.all();
+  console.log("\nProducts:\n", allProducts);
+  console.log("\nArticles:\n");
+  res.render("home", { allProducts });
+});
 
 /////////////////////////////////////////
 
@@ -47,7 +58,13 @@ app.post("/products", (req, res) => {
 
 //PUT '/products/:id'
 app.put("/products/:id", (req, res) => {
+  // console.log("\nreq.body @ PUT:\n", req.body);
+  // const {id} = req.params;
+  // let productToEdit = DB_Products.getProductById(id);
+  // console.log("\nproductToEdit:\n", productToEdit);
+  // if(req.body.name !== ""){
 
+  // }
 });
 
 //DELETE '/products/:id'
@@ -55,7 +72,10 @@ app.delete("/products/:id", (req, res) => {
 
 });
 
-//Product routes below will output HTML generated from TMEPLATE ENGINE
+////////////////////////////////////////////////////////////////////////
+//Product routes below will output HTML generated from TMEPLATE ENGINE//
+////////////////////////////////////////////////////////////////////////
+
 //GET '/products/new'
 app.get("/products/new", (req, res) => {
   console.log("This is GET /products/new - new.hbs");
@@ -64,12 +84,11 @@ app.get("/products/new", (req, res) => {
   res.render("new");
 });
 
-//GET '/products'
-app.get("/products", (req, res) => {
-  console.log("\nThis is GET /products - index.hbs");
-  const productItems = DB_Products.all();
-  console.log("productItems:\n", productItems);
-  res.render('index', { productItems });
+//GET '/products/:id/edit'
+app.get("/products/:id/edit", (req, res) => {
+  console.log("This is GET products - edit");
+  //responds with HTML generated form templates. HTML should contain a form with values already prefilled? so that a user can update the information for a product. The form points to your server's route for editing a product.
+  res.render("edit");
 });
 
 //GET '/products/:id'
@@ -84,35 +103,73 @@ app.get("/products/:id", (req, res) => {
   res.render("product", selectedProductItem);
 });
 
-//GET '/products/:id/edit'
-app.get("/products/:id/edit", (req, res) => {
-  console.log("This is GET products - edit");
-  //responds with HTML generated form templates. HTML should contain a form with values already prefilled? so that a user can update the information for a product. The form points to your server's route for editing a product.
-  res.render("edit");
+//GET '/products'
+app.get("/products", (req, res) => {
+  console.log("\nThis is GET /products - index.hbs");
+  const productItems = DB_Products.all();
+  console.log("productItems:\n", productItems);
+  res.render('index', { productItems });
 });
 
 
-//Render all products
-app.get("/", (req, res) => {
-  const allProducts = DB_Products.all();
-  console.log("\nProducts:\n", allProducts);
-  console.log("\nArticles:\n");
-  res.render("home", { allProducts });
+///////////////////////////////////////////////////////////////
+
+
+//////////////////
+//Article Routes//
+//////////////////
+
+//POST '/articles'
+app.post("/articles", (req, res) => {
+
+});
+
+//PUT '/articles/:title'
+app.put("/articles/:title", (req, res) => {
+
+});
+
+//DELETE '/articles/:title'
+app.delete("/articles/:title", (req, res) => {
+
+});
+
+////////////////////////////////////////////////////////////////////////
+//Article routes below will output HTML generated from our TEMPLATES //
+////////////////////////////////////////////////////////////////////////
+
+//GET '/articles/new'
+app.get("/articles/new", (req, res) => {
+
+});
+
+//GET '/articles/:title/edit'
+app.get("/articles/:title/edit", (req, res) => {
+
+});
+
+//GET '/articles/:title'
+app.get("/articles/:title", (req, res) => {
+  console.log("This is GET /articles/:title - articles.hbs");
+  //console.log("req.params:", req.params);
+  const { title } = req.params;
+  console.log("title:", title);
+  const selectedArticleItem = DB_Articles.getArticleByTitle(title);
+  console.log("\nselectedArticleItem:\n", selectedArticleItem);
+  res.render("article", selectedArticleItem);
+
+});
+
+//GET '/articles'
+app.get("/articles", (req, res) => {
+  console.log("\nThis is GET /articles - index.hbs");
+  const articleItems = DB_Articles.all();
+  console.log("articleItems:\n", articleItems);
+  res.render('index', { articleItems });
 });
 
 
-// //Render out the product form
-// app.get("/product/new", (req, res) => {
-//   res.render("productForm");
-// });
 
-// //POST creates a new product (add)
-// app.post("/product/new", (req, res) => {
-//   console.log("req.body:", req.body);
-//   const product = req.body;
-//   DB_Products.add(product);
-//   res.redirect('/');
-// })
 
 
 
