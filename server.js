@@ -52,7 +52,7 @@ app.get("/products/new", (req, res) => {
   res.render("new");
 });
 
-//GET '/products/:id/edit'; user can update information for a product >>>NOT DONE<<<<
+//GET '/products/:id/edit'; user can update information for a product
 app.get("/products/:id/edit", (req, res) => {
   console.log("\nThis is GET products - edit");
   //responds with HTML generated form templates. HTML should contain a form with values already prefilled? so that a user can update the information for a product. The form points to your server's route for editing a product.
@@ -185,8 +185,19 @@ app.post("/articles", (req, res) => {
 app.put("/articles/:title", (req, res) => {
   console.log("\nreq.body @ articles PUT:\n", req.body);
   console.log("req.params:", req.params);
-
-
+  const { title } = req.params;
+  let articleToEdit = DB_Articles.getArticleByTitle(title);
+  console.log("\narticleToEdit:\n", articleToEdit);
+  if (req.body.title !== articleToEdit.title) {
+    articleToEdit.title = req.body.title;
+  }
+  if (req.body.body !== articleToEdit.body) {
+    articleToEdit.body = req.body.body;
+  }
+  if (req.body.author !== articleToEdit.author) {
+    articleToEdit.author = req.body.author;
+  }
+  res.redirect(`/articles/${articleToEdit.title}`);
 
 });
 
