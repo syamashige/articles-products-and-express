@@ -121,7 +121,12 @@ app.get("/products", (req, res) => {
 
 //POST '/articles'
 app.post("/articles", (req, res) => {
-
+  console.log("\nreq.body:\n", req.body);
+  if (req.body.title !== "" && req.body.body !== "" && req.body.author !== "") {
+    const newArticleItem = req.body;
+    DB_Articles.add(newArticleItem);
+    res.redirect("/articles");
+  }
 });
 
 //PUT '/articles/:title'
@@ -140,7 +145,8 @@ app.delete("/articles/:title", (req, res) => {
 
 //GET '/articles/new'
 app.get("/articles/new", (req, res) => {
-
+  console.log("This is GET /articles/new - new.hbs");
+  res.render("new");
 });
 
 //GET '/articles/:title/edit'
