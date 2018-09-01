@@ -1,16 +1,38 @@
 <form action="/products/{{id}}?_method=PUT" method="post">
 
   <label>Name:
-    <input type="text" name="name" value="{{name}}" id="">
+    <textarea name="name" id="">{{name}}</textarea>
   </label>
 
   <label>Price:
-    <input type="text" name="price" value="{{price}}" id="">
+    <textarea name="price" id="">{{price}}</textarea>
   </label>
 
   <label>Inventory:
-    <input type="text" name="inventory" value="{{inventory}}" id="">
+    <textarea name="inventory" id="">{{inventory}}</textarea>
+  </label>
+  <br><br>
+  <input type="submit" value="Submit">
+</form>
+
+<br><br><br>
+
+
+
+<form action="/articles/{{title}}?_method=PUT" method="post">
+
+  <label>Title:
+    <textarea name="title" id="">{{title}}</textarea>
   </label>
 
+  <label>Body:
+    <textarea name="body" id="">{{body}}</textarea>
+  </label>
+
+  <label>Author:
+    <textarea name="author" id="">{{author}}</textarea>
+  </label>
+
+  <br><br>
   <input type="submit" value="Submit">
 </form>

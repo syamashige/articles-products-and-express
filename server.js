@@ -48,13 +48,13 @@ app.get("/", (req, res) => {
 
 //GET '/products/new'; creates a new product
 app.get("/products/new", (req, res) => {
-  console.log("This is GET /products/new - new.hbs");
+  console.log("\nThis is GET /products/new - new.hbs");
   res.render("new");
 });
 
 //GET '/products/:id/edit'; user can update information for a product >>>NOT DONE<<<<
 app.get("/products/:id/edit", (req, res) => {
-  console.log("This is GET products - edit");
+  console.log("\nThis is GET products - edit");
   //responds with HTML generated form templates. HTML should contain a form with values already prefilled? so that a user can update the information for a product. The form points to your server's route for editing a product.
   //console.log(req.params);
   const { id } = req.params;
@@ -65,7 +65,7 @@ app.get("/products/:id/edit", (req, res) => {
 
 //GET '/products/:id'; displays the selected product's info with the corresponding ID
 app.get("/products/:id", (req, res) => {
-  console.log("This is GET /products/:id - product.hbs");
+  console.log("\nThis is GET /products/:id - product.hbs");
   //console.log("req.params:", req.params);
   const { id } = req.params;
   console.log("id:", id);
@@ -103,7 +103,7 @@ app.post("/products", (req, res) => {
 
 //PUT '/products/:id'
 app.put("/products/:id", (req, res) => {
-  console.log("\nreq.body @ PUT:\n", req.body);
+  console.log("\nreq.body @ products PUT:\n", req.body);
   console.log("req.params:", req.params);
   const { id } = req.params;
   let productToEdit = DB_Products.getProductById(id);
@@ -125,11 +125,47 @@ app.delete("/products/:id", (req, res) => {
 
 });
 
-
-
-
 ///////////////////////////////////////////////////////////////
 
+////////////////////////////////////////////////////////////////////////
+//Article routes below will output HTML generated from our TEMPLATES //
+////////////////////////////////////////////////////////////////////////
+
+//GET '/articles/new'
+app.get("/articles/new", (req, res) => {
+  console.log("\nThis is GET /articles/new - new.hbs");
+  res.render("new");
+});
+
+//GET '/articles/:title/edit'
+app.get("/articles/:title/edit", (req, res) => {
+  console.log("\nThis is GET articles - edit");
+  //console.log("req.params:", req.params);
+  const { title } = req.params;
+  console.log("Title for edit:", title);
+  const editArticleItem = DB_Articles.getArticleByTitle(title);
+  res.render("edit", editArticleItem);
+});
+
+//GET '/articles/:title'
+app.get("/articles/:title", (req, res) => {
+  console.log("\nThis is GET /articles/:title - articles.hbs");
+  //console.log("req.params:", req.params);
+  const { title } = req.params;
+  console.log("title:", title);
+  const selectedArticleItem = DB_Articles.getArticleByTitle(title);
+  console.log("\nselectedArticleItem:\n", selectedArticleItem);
+  res.render("article", selectedArticleItem);
+
+});
+
+//GET '/articles'
+app.get("/articles", (req, res) => {
+  console.log("\nThis is GET /articles - index.hbs");
+  const articleItems = DB_Articles.all();
+  console.log("articleItems:\n", articleItems);
+  res.render('index', { articleItems });
+});
 
 //////////////////
 //Article Routes//
@@ -147,6 +183,10 @@ app.post("/articles", (req, res) => {
 
 //PUT '/articles/:title'
 app.put("/articles/:title", (req, res) => {
+  console.log("\nreq.body @ articles PUT:\n", req.body);
+  console.log("req.params:", req.params);
+
+
 
 });
 
@@ -155,40 +195,7 @@ app.delete("/articles/:title", (req, res) => {
 
 });
 
-////////////////////////////////////////////////////////////////////////
-//Article routes below will output HTML generated from our TEMPLATES //
-////////////////////////////////////////////////////////////////////////
 
-//GET '/articles/new'
-app.get("/articles/new", (req, res) => {
-  console.log("This is GET /articles/new - new.hbs");
-  res.render("new");
-});
-
-//GET '/articles/:title/edit'
-app.get("/articles/:title/edit", (req, res) => {
-
-});
-
-//GET '/articles/:title'
-app.get("/articles/:title", (req, res) => {
-  console.log("This is GET /articles/:title - articles.hbs");
-  //console.log("req.params:", req.params);
-  const { title } = req.params;
-  console.log("title:", title);
-  const selectedArticleItem = DB_Articles.getArticleByTitle(title);
-  console.log("\nselectedArticleItem:\n", selectedArticleItem);
-  res.render("article", selectedArticleItem);
-
-});
-
-//GET '/articles'
-app.get("/articles", (req, res) => {
-  console.log("\nThis is GET /articles - index.hbs");
-  const articleItems = DB_Articles.all();
-  console.log("articleItems:\n", articleItems);
-  res.render('index', { articleItems });
-});
 
 
 
