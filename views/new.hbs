@@ -1,4 +1,4 @@
-<form action="/products/new" method="post">
+<form action="/products" method="post">
   <label>Name:
     <input type="text" name="name" id="">
   </label>
@@ -11,4 +11,10 @@
   <input type="submit" value="Submit">
 </form>
 
-<a href="/">Back to Home</a>
+<div>
+  {{#if errorFlag}}
+  <p>{{content}}</p>
+  {{/if}}
+</div>
+
+<br>{{> footer}}

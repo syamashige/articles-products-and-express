@@ -9,6 +9,11 @@ const DB_Products = new Products();
 //const Articles = require('./db/articles.js');
 //const DB_Articles = new Articles();
 
+let error = {
+  errorFlag: true,
+  errMsg: "Error with submitting. Please fill in all fields and try again."
+}
+
 //Tells Express to use a static directory that we define as the location to look for requests
 app.use(express.static("public"));
 
@@ -27,7 +32,17 @@ app.set('view engine', '.hbs');
 
 //POST '/products'
 app.post("/products", (req, res) => {
-
+  console.log("\nreq.body:\n", req.body);
+  if (req.body.name !== "" && req.body.price !== "" && req.body.inventory !== "") {
+    req.body.price = Number(req.body.price);
+    req.body.inventory = Number(req.body.inventory);
+    const newProductItem = req.body;
+    DB_Products.add(newProductItem);
+    res.redirect("/products");
+  }
+  // else {
+  //   res.redirect("/products/new", error);
+  // }
 });
 
 //PUT '/products/:id'
@@ -43,8 +58,9 @@ app.delete("/products/:id", (req, res) => {
 //Product routes below will output HTML generated from TMEPLATE ENGINE
 //GET '/products/new'
 app.get("/products/new", (req, res) => {
-  console.log("This is GET products - new");
+  console.log("This is GET /products/new - new.hbs");
   //responds with HTML generated from templates. HTML should contain an EMPTY form which a user will be able to create a new product. Form points to your server's route for creating a new product
+
   res.render("new");
 });
 
@@ -76,12 +92,13 @@ app.get("/products/:id/edit", (req, res) => {
 });
 
 
-// //Render all products
-// app.get("/", (req, res) => {
-//   const item = DB_Products.all();
-//   console.log("\nProducts:", item);
-//   res.render("home", { item });
-// });
+//Render all products
+app.get("/", (req, res) => {
+  const allProducts = DB_Products.all();
+  console.log("\nProducts:\n", allProducts);
+  console.log("\nArticles:\n");
+  res.render("home", { allProducts });
+});
 
 
 // //Render out the product form
