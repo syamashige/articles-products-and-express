@@ -4,17 +4,17 @@ class Products {
     this._productStorage = [];
     this.add({
       name: 'Coffee Candy',
-      price: 3.00,
+      price: 3.12,
       inventory: 28
     });
     this.add({
       name: 'NutterButter',
-      price: 8.50,
+      price: 8.56,
       inventory: 20
     });
     this.add({
-      name: 'Ramen',
-      price: 2.50,
+      name: 'Chocolate Chip Cookie',
+      price: 2.58,
       inventory: 4
     });
   }
@@ -25,7 +25,10 @@ class Products {
   }
 
   getProductById(id) {
-    return this._productStorage.filter(item => id === item.id)[0];
+
+    let filteredArray = this._productStorage.filter(element => id == element.id)[0];
+    //console.log("filteredArray:", filteredArray);
+    return filteredArray;
   }
 
   add(product) {

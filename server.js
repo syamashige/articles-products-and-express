@@ -41,13 +41,14 @@ app.delete("/products/:id", (req, res) => {
 });
 
 //Product routes below will output HTML generated from TMEPLATE ENGINE
-//GET '/products'
+//GET '/products/new'
 app.get("/products/new", (req, res) => {
   console.log("This is GET products - new");
   //responds with HTML generated from templates. HTML should contain an EMPTY form which a user will be able to create a new product. Form points to your server's route for creating a new product
   res.render("new");
 });
 
+//GET '/products'
 app.get("/products", (req, res) => {
   console.log("\nThis is GET /products - index.hbs");
   const productItems = DB_Products.all();
@@ -55,12 +56,19 @@ app.get("/products", (req, res) => {
   res.render('index', { productItems });
 });
 
+//GET '/products/:id'
 app.get("/products/:id", (req, res) => {
-  console.log("This is GET products - product");
+  console.log("This is GET /products/:id - product.hbs");
   //respond with HTML generated from template that displays the Products info for the product with the corresponding ID
-  res.render("product");
+  //console.log("req.params:", req.params);
+  const { id } = req.params;
+  console.log("id:", id);
+  const selectedProductItem = DB_Products.getProductById(id);
+  console.log("\nselectedProductItem:\n", selectedProductItem);
+  res.render("product", selectedProductItem);
 });
 
+//GET '/products/:id/edit'
 app.get("/products/:id/edit", (req, res) => {
   console.log("This is GET products - edit");
   //responds with HTML generated form templates. HTML should contain a form with values already prefilled? so that a user can update the information for a product. The form points to your server's route for editing a product.
