@@ -117,7 +117,7 @@ app.put("/products/:id", (req, res) => {
   if (req.body.inventory !== productToEdit.inventory) {
     productToEdit.inventory = req.body.inventory;
   }
-  res.redirect(`/products/${{ id }}`);
+  res.redirect(`/products/${id}`);
 });
 
 //DELETE '/products/:id'
