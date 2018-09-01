@@ -3,6 +3,7 @@ const app = express();
 const PORT = process.env.PORT || 8002;
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
+const methodOverride = require('method-override');
 
 
 const Products = require('./db/products.js');
@@ -10,10 +11,10 @@ const DB_Products = new Products();
 const Articles = require('./db/articles.js');
 const DB_Articles = new Articles();
 
-let error = {
-  errorFlag: true,
-  errMsg: "Error with submitting. Please fill in all fields and try again."
-}
+// let error = {
+//   errorFlag: true,
+//   errMsg: "Error with submitting. Please fill in all fields and try again."
+// }
 
 //Tells Express to use a static directory that we define as the location to look for requests
 app.use(express.static("public"));
@@ -25,17 +26,61 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.engine('.hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }));
 app.set('view engine', '.hbs');
 
+//Setup for method override
+app.use(methodOverride('_method'));
+
 /////////////////////////////////////////
 
 //Render all products
 app.get("/", (req, res) => {
   const allProducts = DB_Products.all();
+  const allArticles = DB_Articles.all();
   console.log("\nProducts:\n", allProducts);
-  console.log("\nArticles:\n");
-  res.render("home", { allProducts });
+  console.log("\nArticles:\n", allArticles);
+  res.render("home", { allProducts, allArticles });
 });
 
 /////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////
+//Product routes below will output HTML generated from TEMPLATE ENGINE//
+////////////////////////////////////////////////////////////////////////
+
+//GET '/products/new'; creates a new product
+app.get("/products/new", (req, res) => {
+  console.log("This is GET /products/new - new.hbs");
+  res.render("new");
+});
+
+//GET '/products/:id/edit'; user can update information for a product >>>NOT DONE<<<<
+app.get("/products/:id/edit", (req, res) => {
+  console.log("This is GET products - edit");
+  //responds with HTML generated form templates. HTML should contain a form with values already prefilled? so that a user can update the information for a product. The form points to your server's route for editing a product.
+  //console.log(req.params);
+  const { id } = req.params;
+  console.log("ID for edit:", id);
+  const editProductItem = DB_Products.getProductById(id);
+  res.render("edit", editProductItem);
+});
+
+//GET '/products/:id'; displays the selected product's info with the corresponding ID
+app.get("/products/:id", (req, res) => {
+  console.log("This is GET /products/:id - product.hbs");
+  //console.log("req.params:", req.params);
+  const { id } = req.params;
+  console.log("id:", id);
+  const selectedProductItem = DB_Products.getProductById(id);
+  console.log("\nselectedProductItem:\n", selectedProductItem);
+  res.render("product", selectedProductItem);
+});
+
+//GET '/products'; displays all Products add thus far
+app.get("/products", (req, res) => {
+  console.log("\nThis is GET /products - index.hbs");
+  const productItems = DB_Products.all();
+  console.log("productItems:\n", productItems);
+  res.render('index', { productItems });
+});
 
 //////////////////
 //Product Routes//
@@ -58,13 +103,21 @@ app.post("/products", (req, res) => {
 
 //PUT '/products/:id'
 app.put("/products/:id", (req, res) => {
-  // console.log("\nreq.body @ PUT:\n", req.body);
-  // const {id} = req.params;
-  // let productToEdit = DB_Products.getProductById(id);
-  // console.log("\nproductToEdit:\n", productToEdit);
-  // if(req.body.name !== ""){
-
-  // }
+  console.log("\nreq.body @ PUT:\n", req.body);
+  console.log("req.params:", req.params);
+  const { id } = req.params;
+  let productToEdit = DB_Products.getProductById(id);
+  console.log("\nproductToEdit:\n", productToEdit);
+  if (req.body.name !== productToEdit.name) {
+    productToEdit.name = req.body.name;
+  }
+  if (req.body.price !== productToEdit.price) {
+    productToEdit.price = req.body.price;
+  }
+  if (req.body.inventory !== productToEdit.inventory) {
+    productToEdit.inventory = req.body.inventory;
+  }
+  res.redirect(`/products/${{ id }}`);
 });
 
 //DELETE '/products/:id'
@@ -72,44 +125,7 @@ app.delete("/products/:id", (req, res) => {
 
 });
 
-////////////////////////////////////////////////////////////////////////
-//Product routes below will output HTML generated from TMEPLATE ENGINE//
-////////////////////////////////////////////////////////////////////////
 
-//GET '/products/new'
-app.get("/products/new", (req, res) => {
-  console.log("This is GET /products/new - new.hbs");
-  //responds with HTML generated from templates. HTML should contain an EMPTY form which a user will be able to create a new product. Form points to your server's route for creating a new product
-
-  res.render("new");
-});
-
-//GET '/products/:id/edit'
-app.get("/products/:id/edit", (req, res) => {
-  console.log("This is GET products - edit");
-  //responds with HTML generated form templates. HTML should contain a form with values already prefilled? so that a user can update the information for a product. The form points to your server's route for editing a product.
-  res.render("edit");
-});
-
-//GET '/products/:id'
-app.get("/products/:id", (req, res) => {
-  console.log("This is GET /products/:id - product.hbs");
-  //respond with HTML generated from template that displays the Products info for the product with the corresponding ID
-  //console.log("req.params:", req.params);
-  const { id } = req.params;
-  console.log("id:", id);
-  const selectedProductItem = DB_Products.getProductById(id);
-  console.log("\nselectedProductItem:\n", selectedProductItem);
-  res.render("product", selectedProductItem);
-});
-
-//GET '/products'
-app.get("/products", (req, res) => {
-  console.log("\nThis is GET /products - index.hbs");
-  const productItems = DB_Products.all();
-  console.log("productItems:\n", productItems);
-  res.render('index', { productItems });
-});
 
 
 ///////////////////////////////////////////////////////////////

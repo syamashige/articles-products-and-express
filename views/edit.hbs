@@ -1,0 +1,17 @@
+<form action="/products/{{id}}?_method=PUT" method="post">
+  {{!-- <input type="hidden" name="_method" value="put"> --}}
+
+  <label>Name:
+    <input type="text" name="name" value="{{name}}" id="">
+  </label>
+
+  <label>Price:
+    <input type="text" name="price" value="{{price}}" id="">
+  </label>
+
+  <label>Inventory:
+    <input type="text" name="inventory" value="{{inventory}}" id="">
+  </label>
+
+  <input type="submit" value="Submit">
+</form>
