@@ -1,32 +1,27 @@
 <form action="/products" method="post">
   <label>Name:
-    <input type="text" name="name" id="">
+    <textarea name="name" id=""></textarea>
   </label>
   <label>Price:
-    <input type="text" name="price" id="">
+    <textarea name="price" id=""></textarea>
   </label>
   <label>Inventory:
-    <input type="text" name="inventory" id="">
+    <textarea name="inventory" id=""></textarea>
   </label>
   <input type="submit" value="Submit">
 </form>
 
-<div>
-  {{#if errorFlag}}
-  <p>{{content}}</p>
-  {{/if}}
-</div>
 <br>
 
 <form action="/articles" method="post">
   <label>Title:
-    <input type="text" name="title" id="">
+    <textarea name="title" id=""></textarea>
   </label>
   <label>Body:
-    <input type="text" name="body" id="">
+    <textarea name="body" id=""></textarea>
   </label>
   <label>Author:
-    <input type="text" name="author" id="">
+    <textarea name="author" id=""></textarea>
   </label>
   <input type="submit" value="Submit">
 </form>

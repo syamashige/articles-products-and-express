@@ -1,17 +1,15 @@
+ {{#if productItems}}
 <h1>Products</h1>
 {{#each productItems}}
 <div>
   <a href="/products/{{id}}">{{name}}</a>
 </div>
-{{/each}}
-
-<br><br>
-
+{{/each}} {{/if}} {{#if articleItems}}
 <h1>Articles</h1>
 {{#each articleItems}}
 <div>
   <a href="/articles/{{title}}">{{title}}</a>
 </div>
-{{/each}}
+{{/each}} {{/if}}
 <br>
 <a href="/">HOME</a>

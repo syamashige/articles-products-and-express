@@ -5,16 +5,10 @@ const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 const methodOverride = require('method-override');
 
-
 const Products = require('./db/products.js');
 const DB_Products = new Products();
 const Articles = require('./db/articles.js');
 const DB_Articles = new Articles();
-
-// let error = {
-//   errorFlag: true,
-//   errMsg: "Error with submitting. Please fill in all fields and try again."
-// }
 
 //Tells Express to use a static directory that we define as the location to look for requests
 app.use(express.static("public"));
