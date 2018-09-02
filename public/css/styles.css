@@ -34,6 +34,7 @@ h1{
     width: 50%;
     border: 1px solid white; 
     padding: 20% 10% 20% 10%;
+    text-align: center;
 }
 #prodDiv{
     background-image: url('/assets/abstract-blue2.jpg');
@@ -58,14 +59,28 @@ h1{
     text-decoration: none;
 }
 
+
 /* #createForm {
     text-align: center;
     margin: 10%;
 } */
 
+#formBackground{
+    margin: 0;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    /* opacity: 0; */
+    z-index: -1;
+}
+
 #nameLabel, #priceLabel, #inventoryLabel, #descriptLabel {
-  color: white;
-  display: block;
+    margin-left: 1%;
+    color: white;
+    display: block;
+    text-shadow: 2px 5px darkgrey;
+    font-weight: bolder;
 }
 
 #nameInput{
@@ -89,11 +104,37 @@ h1{
     
 }
 
+#submitButton {
+    font-family: 'Poiret One', cursive;
+    color: white;
+    border: 2px solid white;
+    background-color: black;
+    padding: 0.5%;
+    font-size: 15px;
+    border-radius:4px;
+    box-shadow: 2px 5px 5px darkgrey;
+}
+
 input[type=text]{
     border: 1px solid lightskyblue;
     border-radius: 4px;
     padding: 0.5% 1% 0.5% 1%;
     width: 50%;
     margin: 1%;
+
+}
+
+#footer {
+    position: absolute;
+    top: 95%;
+    text-decoration: none;
+    background-color: black;
+    color: white;
+    font-size: 15px;
+    /* text-shadow: 2px 5px darkgrey; */
+    border: 2px solid white;
+    padding: 0.5%;
+    border-radius: 4px;
+    box-shadow: 2px 5px 5px darkgrey;
 
 }
