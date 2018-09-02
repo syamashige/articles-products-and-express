@@ -43,7 +43,8 @@ app.get("/", (req, res) => {
 //GET '/products/new'; creates a new product
 app.get("/products/new", (req, res) => {
   console.log("\nThis is GET /products/new - new.hbs");
-  res.render("new");
+  const addingProduct = true;
+  res.render("new", { addingProduct });
 });
 
 //GET '/products/:id/edit'; user can update information for a product
@@ -53,7 +54,7 @@ app.get("/products/:id/edit", (req, res) => {
   const { id } = req.params;
   console.log("ID for edit:", id);
   const editProductItem = DB_Products.getProductById(id);
-  res.render("edit", editProductItem);
+  res.render("edit", { editProductItem });
 });
 
 //GET '/products/:id'; displays the selected product's info with the corresponding ID
@@ -135,7 +136,8 @@ app.delete("/products/:id", (req, res) => {
 //GET '/articles/new'
 app.get("/articles/new", (req, res) => {
   console.log("\nThis is GET /articles/new - new.hbs");
-  res.render("new");
+  const addingArticle = true;
+  res.render("new", { addingArticle });
 });
 
 //GET '/articles/:title/edit'

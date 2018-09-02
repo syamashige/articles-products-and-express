@@ -1,3 +1,4 @@
+{{#if addingProduct}}
 <form action="/products" method="post">
   <label>Name:
     <textarea name="name" id=""></textarea>
@@ -10,9 +11,9 @@
   </label>
   <input type="submit" value="Submit">
 </form>
-
 <br>
-
+<a href="/products">Back</a>
+{{/if}} {{#if addingArticle}}
 <form action="/articles" method="post">
   <label>Title:
     <textarea name="title" id=""></textarea>
@@ -25,5 +26,6 @@
   </label>
   <input type="submit" value="Submit">
 </form>
-
-<br>{{> footer}}
+<br>
+<a href="/articles">Back</a>
+{{/if}}

@@ -10,3 +10,7 @@ textarea {
   height: 50px;
   word-wrap: break-word;
 }
+
+label {
+  color: red;
+}

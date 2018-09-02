@@ -4,12 +4,19 @@
 <div>
   <a href="/products/{{id}}">{{name}}</a>
 </div>
-{{/each}} {{/if}} {{#if articleItems}}
+{{/each}}
+<br>
+<a href="/products/new">Enter New Product</a>
+{{/if}} {{#if articleItems}}
 <h1>Articles</h1>
 {{#each articleItems}}
 <div>
   <a href="/articles/{{title}}">{{title}}</a>
 </div>
-{{/each}} {{/if}}
+{{/each}}
 <br>
+<a href="/articles/new">Enter New Article</a>
+{{/if}}
+
+<br><br>
 <a href="/">HOME</a>
