@@ -31,6 +31,19 @@ class Products {
     return filteredArray;
   }
 
+  removeProductById(id) {
+    let removedProduct = null;
+    console.log("\nproductStorage before remove:\n", this._productStorage);
+    this._productStorage.forEach((element, index) => {
+      if (element.id === Number(id)) {
+        removedProduct = this._productStorage.splice(index, 1);
+      }
+    });
+    console.log("\nproductStorage after remove:\n", this._productStorage);
+
+    return removedProduct;
+  }
+
   add(product) {
     product.id = this._count;
     this._productStorage.push(product);
