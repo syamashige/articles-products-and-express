@@ -30,6 +30,20 @@ class Articles {
     return filteredArray;
   }
 
+  removeArticleByTitle(title) {
+    let removedArticle = null;
+    console.log("\narticleStorage before remove:\n", this._articleStorage);
+    this._articleStorage.forEach((element, index) => {
+      if (element.title === title) {
+        removedArticle = this._articleStorage.splice(index, 1);
+      }
+    });
+    console.log("\narticleStorage after remove:\n", this._articleStorage);
+
+    return removedArticle;
+  }
+
+
   add(article) {
     article.urlTitle = encodeURI(article.title);
     this._articleStorage.push(article);

@@ -26,7 +26,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.engine('.hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }));
 app.set('view engine', '.hbs');
 
-//Setup for method override
+//Setup for method-override
 app.use(methodOverride('_method'));
 
 /////////////////////////////////////////
@@ -55,7 +55,6 @@ app.get("/products/new", (req, res) => {
 //GET '/products/:id/edit'; user can update information for a product
 app.get("/products/:id/edit", (req, res) => {
   console.log("\nThis is GET products - edit");
-  //responds with HTML generated form templates. HTML should contain a form with values already prefilled? so that a user can update the information for a product. The form points to your server's route for editing a product.
   //console.log(req.params);
   const { id } = req.params;
   console.log("ID for edit:", id);
@@ -70,7 +69,7 @@ app.get("/products/:id", (req, res) => {
   const { id } = req.params;
   console.log("id:", id);
   const selectedProductItem = DB_Products.getProductById(id);
-  console.log("\nselectedProductItem:\n", selectedProductItem);
+  console.log("selectedProductItem:\n", selectedProductItem);
   res.render("product", selectedProductItem);
 });
 
@@ -211,7 +210,14 @@ app.put("/articles/:title", (req, res) => {
 
 //DELETE '/articles/:title'
 app.delete("/articles/:title", (req, res) => {
-
+  console.log("\nThis is DELETE for articles.");
+  console.log("req.params:", req.params);
+  const { title } = req.params;
+  //Find the article in storage and remove it
+  let deletedArticle = DB_Articles.removeArticleByTitle(title);
+  console.log("\nCheck deletedArticle:", deletedArticle);
+  console.log("\nCheck remaining articles:\n", DB_Articles.all());
+  res.redirect('/articles');
 });
 
 
