@@ -4,21 +4,21 @@
   <label>Name:
     <textarea name="name" id="">{{name}}</textarea>
   </label>
-
+  <br>
   <label>Price:
     <textarea name="price" id="">{{price}}</textarea>
   </label>
-
+  <br>
   <label>Inventory:
     <textarea name="inventory" id="">{{inventory}}</textarea>
   </label>
   <br><br>
-  <input type="submit" value="Submit"> {{/with}}
+  <input class="submitBtn" type="submit" value="Submit"> {{/with}}
 </form>
 
 {{#with editProductItem}}
 <form action="/products/{{id}}?_method=DELETE" method="post">
-  <button type="submit">Delete Product</button>
+  <button class="submitBtn" type="submit">Delete Product</button>
   {{/with}}
 </form>
 
@@ -38,11 +38,11 @@
   </label>
 
   <br><br>
-  <input type="submit" value="Submit"> {{/with}}
+  <input class="submitBtn" type="submit" value="Submit"> {{/with}}
 </form>
 
 {{#with editArticleItem}}
 <form action="/articles/{{title}}?_method=DELETE" method="post">
-  <button type="submit">Delete Article</button>
+  <button class="submitBtn" type="submit">Delete Article</button>
   {{/with}}
 </form>

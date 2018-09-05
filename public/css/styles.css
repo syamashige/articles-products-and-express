@@ -1,16 +1,89 @@
-h1 {
+body{
+  margin: 0;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+#title {
+  text-align: center;
+  font-family: 'Cabin Sketch', cursive;
+  font-size: 2em;
   color: coral;
+}
+
+#content{
+  text-align: center;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+
+#products, #articles{
+  padding: 20px;
+}
+
+p {
+  padding: 20px;
+  font-family: 'Fredericka the Great', cursive;
+  font-size: 3em;
+  color: black;
+  margin: auto;
+}
+
+.sectionName {
+  padding: 20px;
+  font-family: 'Fredericka the Great', cursive;
+  font-size: 3em;
+  color: coral;
+  margin: auto;
+}
+
+p:hover{
+  color: lightcoral;
+}
+
+.item, .add, .edit, .redirect{
+  font-family: 'Comfortaa', cursive;
+  font-size: 1.5em;
+  text-align: center;
+  color: steelblue;
+}
+
+a:link{
+  text-decoration: none;
+}
+
+h1 {
+  text-align: center;
+  color: coral;
+
 }
 h2{
   color: lightseagreen;
+  text-align: center;
+  font-family: 'Comfortaa', cursive;
 }
 
 textarea {
   width: 300px;
   height: 50px;
   word-wrap: break-word;
+  font-size: 1em;
+}
+
+form{
+  margin: 100px auto;
+  width: 277px;
 }
 
 label {
-  color: red;
+  font-family: 'Comfortaa', cursive;
+  color: steelblue;
+  font: 5em;
+  font-weight: bold;
+  text-align: center;
+}
+.submitBtn{
+  font-size: 2em;
+  
 }

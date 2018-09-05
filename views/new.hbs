@@ -1,31 +1,37 @@
 {{#if addingProduct}}
 <form action="/products" method="post">
-  <label>Name:
+  <label>Name:<br>
     <textarea name="name" id=""></textarea>
   </label>
-  <label>Price:
+  <br><br>
+  <label>Price:<br>
     <textarea name="price" id=""></textarea>
   </label>
-  <label>Inventory:
+  <br><br>
+  <label>Inventory:<br>
     <textarea name="inventory" id=""></textarea>
   </label>
-  <input type="submit" value="Submit">
+  <br><br>
+  <input class="submitBtn" type="submit" value="Submit">
 </form>
 <br>
-<a href="/products">Back</a>
+<a class="redirect" href="/products"><i class="fas fa-arrow-circle-left"></i> Back to Products</a>
 {{/if}} {{#if addingArticle}}
 <form action="/articles" method="post">
-  <label>Title:
+  <label>Title:<br>
     <textarea name="title" id=""></textarea>
   </label>
-  <label>Body:
+  <br><br>
+  <label>Body:<br>
     <textarea name="body" id=""></textarea>
   </label>
-  <label>Author:
+  <br><br>
+  <label>Author:<br>
     <textarea name="author" id=""></textarea>
   </label>
-  <input type="submit" value="Submit">
+  <br><br>
+  <input class="submitBtn" type="submit" value="Submit">
 </form>
 <br>
-<a href="/articles">Back</a>
+<a class="redirect" href="/articles"><i class="fas fa-arrow-circle-left"></i> Back to Articles</a>
 {{/if}}

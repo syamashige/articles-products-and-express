@@ -25,7 +25,7 @@ app.use(methodOverride('_method'));
 
 /////////////////////////////////////////
 
-//Render all products
+//Render all products and articles; a homepage
 app.get("/", (req, res) => {
   const allProducts = DB_Products.all();
   const allArticles = DB_Articles.all();
@@ -147,7 +147,7 @@ app.get("/articles/:title/edit", (req, res) => {
   const { title } = req.params;
   console.log("Title for edit:", title);
   const editArticleItem = DB_Articles.getArticleByTitle(title);
-  res.render("edit", editArticleItem);
+  res.render("edit", { editArticleItem });
 });
 
 //GET '/articles/:title'
@@ -215,16 +215,6 @@ app.delete("/articles/:title", (req, res) => {
   console.log("\nCheck remaining articles:\n", DB_Articles.all());
   res.redirect('/articles');
 });
-
-
-
-
-
-
-
-
-
-
 
 app.listen(PORT, () => {
   console.log(`Started app on port: ${PORT}`);
