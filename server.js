@@ -10,6 +10,9 @@ const DB_Products = new Products();
 const Articles = require('./db/articles.js');
 const DB_Articles = new Articles();
 
+let addingProductError = false;
+let addingArticleError = false;
+
 //Tells Express to use a static directory that we define as the location to look for requests
 app.use(express.static("public"));
 
@@ -84,15 +87,17 @@ app.get("/products", (req, res) => {
 app.post("/products", (req, res) => {
   console.log("\nreq.body:\n", req.body);
   if (req.body.name !== "" && req.body.price !== "" && req.body.inventory !== "") {
+    addingError = false;
     req.body.price = Number(req.body.price);
     req.body.inventory = Number(req.body.inventory);
     const newProductItem = req.body;
     DB_Products.add(newProductItem);
     res.redirect("/products");
   }
-  // else {
-  //   res.redirect("/products/new", error);
-  // }
+  else {
+    addingProductError = true;
+    res.render("new", { addingProductError });
+  }
 });
 
 //PUT '/products/:id'
@@ -102,16 +107,21 @@ app.put("/products/:id", (req, res) => {
   const { id } = req.params;
   let productToEdit = DB_Products.getProductById(id);
   console.log("\nproductToEdit:\n", productToEdit);
-  if (req.body.name !== productToEdit.name) {
-    productToEdit.name = req.body.name;
+  if (req.body.name === "" || req.body.price === "" || req.body.inventory === "") {
+    res.render("edit", { productToEdit });
   }
-  if (req.body.price !== productToEdit.price) {
-    productToEdit.price = req.body.price;
+  else {
+    if (req.body.name !== productToEdit.name) {
+      productToEdit.name = req.body.name;
+    }
+    if (req.body.price !== productToEdit.price) {
+      productToEdit.price = req.body.price;
+    }
+    if (req.body.inventory !== productToEdit.inventory) {
+      productToEdit.inventory = req.body.inventory;
+    }
+    res.redirect(`/products/${id}`);
   }
-  if (req.body.inventory !== productToEdit.inventory) {
-    productToEdit.inventory = req.body.inventory;
-  }
-  res.redirect(`/products/${id}`);
 });
 
 //DELETE '/products/:id'
@@ -182,6 +192,10 @@ app.post("/articles", (req, res) => {
     DB_Articles.add(newArticleItem);
     res.redirect("/articles");
   }
+  else {
+    addingArticleError = true;
+    res.render("new", { addingArticleError });
+  }
 });
 
 //PUT '/articles/:title'
@@ -191,16 +205,21 @@ app.put("/articles/:title", (req, res) => {
   const { title } = req.params;
   let articleToEdit = DB_Articles.getArticleByTitle(title);
   console.log("\narticleToEdit:\n", articleToEdit);
-  if (req.body.title !== articleToEdit.title) {
-    articleToEdit.title = req.body.title;
+  if (req.body.title === "" || req.body.body === "" || req.body.author === "") {
+    res.render("edit", { articleToEdit });
   }
-  if (req.body.body !== articleToEdit.body) {
-    articleToEdit.body = req.body.body;
+  else {
+    if (req.body.title !== articleToEdit.title) {
+      articleToEdit.title = req.body.title;
+    }
+    if (req.body.body !== articleToEdit.body) {
+      articleToEdit.body = req.body.body;
+    }
+    if (req.body.author !== articleToEdit.author) {
+      articleToEdit.author = req.body.author;
+    }
+    res.redirect(`/articles/${articleToEdit.title}`);
   }
-  if (req.body.author !== articleToEdit.author) {
-    articleToEdit.author = req.body.author;
-  }
-  res.redirect(`/articles/${articleToEdit.title}`);
 
 });
 

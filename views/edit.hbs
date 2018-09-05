@@ -22,6 +22,32 @@
   {{/with}}
 </form>
 
+{{#with productToEdit}}
+<h1>Error w/editing product. Please try again.</h1>
+<form action="/products/{{id}}?_method=PUT" method="post">
+
+  <label>Name:
+    <textarea name="name" id="">{{name}}</textarea>
+  </label>
+  <br>
+  <label>Price:
+    <textarea name="price" id="">{{price}}</textarea>
+  </label>
+  <br>
+  <label>Inventory:
+    <textarea name="inventory" id="">{{inventory}}</textarea>
+  </label>
+  <br><br>
+  <input class="submitBtn" type="submit" value="Submit"> {{/with}}
+</form>
+
+{{#with productToEdit}}
+<form action="/products/{{id}}?_method=DELETE" method="post">
+  <button class="submitBtn" type="submit">Delete Product</button>
+  {{/with}}
+</form>
+
+
 {{#with editArticleItem}}
 <form action="/articles/{{title}}?_method=PUT" method="post">
 
@@ -42,6 +68,32 @@
 </form>
 
 {{#with editArticleItem}}
+<form action="/articles/{{title}}?_method=DELETE" method="post">
+  <button class="submitBtn" type="submit">Delete Article</button>
+  {{/with}}
+</form>
+
+{{#with articleToEdit}}
+<h1>Error w/editing article. Please try again.</h1>
+<form action="/articles/{{title}}?_method=PUT" method="post">
+
+  <label>Title:
+    <textarea name="title" id="">{{title}}</textarea>
+  </label>
+
+  <label>Body:
+    <textarea name="body" id="">{{body}}</textarea>
+  </label>
+
+  <label>Author:
+    <textarea name="author" id="">{{author}}</textarea>
+  </label>
+
+  <br><br>
+  <input class="submitBtn" type="submit" value="Submit"> {{/with}}
+</form>
+
+{{#with articleToEdit}}
 <form action="/articles/{{title}}?_method=DELETE" method="post">
   <button class="submitBtn" type="submit">Delete Article</button>
   {{/with}}
