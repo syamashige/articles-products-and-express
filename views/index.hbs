@@ -1,21 +1,21 @@
  {{#if productItems}}
 <h1 class="sectionName">Products</h1>
 {{#each productItems}}
-<div class="item">
-  <a href="/products/{{id}}">{{name}}</a>
+<div>
+  <a class="item" href="/products/{{id}}">{{name}}</a>
 </div>
 {{/each}}
-<br>
+<br><br>
 <a class="add" href="/products/new"><i class="fas fa-plus"></i> Add a new product</a>
 {{/if}} {{#if articleItems}}
 <h1 class="sectionName">Articles</h1>
 {{#each articleItems}}
-<div class="item">
-  <a href="/articles/{{title}}">{{title}}</a>
+<div>
+  <a class="item" href="/articles/{{title}}">{{title}}</a>
 </div>
 {{/each}}
-<br>
+<br><br>
 <a class="add" href="/articles/new"><i class="fas fa-plus"></i> Add a new article</a>
 {{/if}}
 
-<br><br> {{!-- <a class="redirect" href="/"><i class="fas fa-arrow-circle-left"></i> HOME</a> --}} {{> footer}}
+<br><br> {{> footer}}

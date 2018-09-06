@@ -9,4 +9,4 @@
 const ItemRoutes = require('./routes/articles')
 
 //If you put /item instead of / then it will add 'item' before your 
-app.get('/item', ItemRoutes);
+app.use('/item', ItemRoutes);

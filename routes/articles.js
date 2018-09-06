@@ -1,27 +1,11 @@
 //Route object that we can route our objects into
 const express = require('express');
 const Router = express.Router();
-// const bodyParser = require('body-parser');
-// const exphbs = require('express-handlebars');
-// const methodOverride = require('method-override');
 
 const Articles = require('../db/articles.js');
 const DB_Articles = new Articles();
 
 let addingArticleError = false;
-
-// //Tells Express to use a static directory that we define as the location to look for requests
-// app.use(express.static("public"));
-
-// //For parsing application/x-www-form-urlencoded. Returns the already parsed information/object as "req.body".
-// app.use(bodyParser.urlencoded({ extended: true }));
-
-// //Creates a super simple Express app; basic way to register a Handlebars view engine
-// app.engine('.hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }));
-// app.set('view engine', '.hbs');
-
-// //Setup for method-override
-// app.use(methodOverride('_method'));
 
 ////////////////////////////////////////////////////////////////////////
 //Article routes below will output HTML generated from our TEMPLATES //
