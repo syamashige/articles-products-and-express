@@ -11,20 +11,52 @@ h1{
     text-shadow: 2px 5px darkgrey;
 }
 
-#prodLink, #articlesLink, #createLink {
+#prodLink, #articlesLink {
     text-decoration: none;
     color: white;
     font-size: 30px;
     text-shadow: 2px 5px darkgrey;
-
 }
+
+#createLink, #createArticle {
+    text-decoration: none;
+    color: white;
+    font-size: 30px;
+    text-shadow: 2px 5px darkgrey;
+}
+
+
+
+/* #createLink {
+    align-content: center;
+}
+
+#prodLinkDiv {
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    font-size: 25px;
+    text-shadow: 2px 5px darkgrey;
+    text-align: center;
+    padding: 5%;
+}
+
+#artLinkDiv {
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    font-size: 25px;
+    text-shadow: 2px 5px darkgrey;
+    text-align: center;
+    padding: 5%;
+} */
 
 #container{
     /* display: inline-block; */
     display: flex;
 }
 
-#prodDiv, #articleDiv, #createDiv {
+#prodDiv, #articleDiv {
     /* display: inline-block;
     d
     text-align: left;
@@ -33,7 +65,7 @@ h1{
     height: auto;
     width: 50%;
     border: 1px solid white; 
-    padding: 20% 10% 20% 10%;
+    padding: 25% 10% 20% 10%;
     text-align: center;
 }
 #prodDiv{
@@ -43,6 +75,8 @@ h1{
 }
 
 #createDiv {
+    padding: 15% 10% 10% 10%; 
+    /* padding: 10%; */
     background-image: url('/assets/abstract-blue3.png');
     background-size: cover;
     background-repeat: no-repeat;
@@ -54,7 +88,7 @@ h1{
     background-repeat: no-repeat;
 }
 
-.productName {
+.productName, .articleTitle {
     color: white;
     text-decoration: none;
 }
@@ -65,7 +99,7 @@ h1{
     margin: 10%;
 } */
 
-#formBackground{
+#formBackground, #articleFormBackground{
     margin: 0;
     position: absolute;
     height: 100%;
@@ -75,20 +109,20 @@ h1{
     z-index: -1;
 }
 
-#nameLabel, #priceLabel, #inventoryLabel, #descriptLabel {
+#nameLabel, #priceLabel, #inventoryLabel, #descriptLabel, #titleLabel, #authorLabel, #bodyLabel  {
     margin-left: 1%;
     color: white;
     display: block;
-    text-shadow: 2px 5px darkgrey;
+    /* text-shadow: 2px 5px darkgrey; */
     font-weight: bolder;
 }
 
-#nameInput{
+#nameInput, #titleInput{
     height: 30px;
     width: 50%;
 }
 
-#priceInput {
+#priceInput, #authorInput {
     height: 30px;
     width: 50%;
 }
@@ -98,13 +132,13 @@ h1{
     height: 30px;
 }
 
-#descriptInput{
+#descriptInput, #bodyInput  {
     height: 100px;
     width: 50%;
     
 }
 
-#submitButton {
+.submitButton {
     font-family: 'Poiret One', cursive;
     color: white;
     border: 2px solid white;
@@ -113,6 +147,7 @@ h1{
     font-size: 15px;
     border-radius:4px;
     box-shadow: 2px 5px 5px darkgrey;
+
 }
 
 input[type=text]{
@@ -124,7 +159,7 @@ input[type=text]{
 
 }
 
-#footer {
+#footer, #backToProducts, #backToForms, #backToArticleForm, #backToArticles {
     position: absolute;
     top: 95%;
     text-decoration: none;
@@ -137,4 +172,9 @@ input[type=text]{
     border-radius: 4px;
     box-shadow: 2px 5px 5px darkgrey;
 
+
+}
+
+#backToProducts, #backToForms, #backToArticleForm, #backToArticles {
+    left: 12%;
 }

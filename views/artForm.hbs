@@ -1,0 +1,26 @@
+<img src="/assets/abstract-blue.jpg" alt="articleFormBackground" id="articleFormBackground">
+<form action="/articles/new" method="post" id="createArtForm">
+<label id="titleLabel">
+    TITLE:
+    <br>
+    <input type="text" name="title" id="titleInput" placeholder="[New title here]">
+</label>
+    <br>
+<label id="authorLabel">
+    AUTHOR:
+    <br>
+    <input type="text" name="author" id="authorInput" placeholder="[New author here]">
+</label>
+    <br>
+<label id="bodyLabel">
+    BODY:
+    <br>
+    <input type="text" name="body" id="bodyInput" placeholder="[New body here]">
+</label>
+    <br>
+    <input type="submit" value"SUBMIT" className="submitButton">
+</form>
+<br>
+
+{{>footer}}
+{{>backToArticles}}

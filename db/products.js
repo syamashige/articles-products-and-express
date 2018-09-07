@@ -15,6 +15,15 @@ class Products {
         this._count++;
         return prod.id;
     }
+    deleteItemById(id) {
+        let removeThisProd;
+        this._storage.forEach((prods, index) => {
+            if (prods.id === id) {
+                removeThisProd = this._storage.splice(index, 1);
+            }
+        });
+        return removeThisProd;
+    }
 }
 
 module.exports = Products

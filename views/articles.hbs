@@ -1,4 +1,9 @@
-<h3>[INSERT ARTICLES HERE]</h3>
+{{#each allArticles}}
+<div>
+    <a href="/articles/{{title}}" class="articleTitle">{{title}}</a>
+</div>
+{{/each}}
 
 <br>
 {{>footer}}
+{{> backToArticleForm}}
