@@ -1,10 +1,13 @@
 const express = require('express');
-const methodOverride = require('method-override');
 const app = express();
+
+const methodOverride = require('method-override');
 const bp = require('body-parser');
 const exphbs = require('express-handlebars')
+
 const Products = require('./db/products.js');
 const DS_Prod = new Products();
+
 const Articles = require('./db/articles.js')
 const DS_Articles = new Articles();
 
@@ -14,7 +17,7 @@ app.use(express.static('public'));
 
 app.use(bp.urlencoded({ extended: true }));
 
-// app.use(methodOverride('_method'));
+app.use(methodOverride('_method'));
 
 app.engine('.hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }));
 app.set('view engine', '.hbs');
@@ -27,7 +30,7 @@ app.get('/', (req, res) => {
 
 // ***** PRODUCTS ***** //
 
-//GET form
+//GET - Create New Products Form
 app.get('/products/new', (req, res) => {
     res.render('form');
 })
@@ -56,6 +59,14 @@ app.post('/products/new', (req, res) => {
     res.redirect('/products');
 });
 
+// PUT - Edits A Product 
+app.put('/products/edit', (req, res) => {
+    //
+    res.redirect('/products/:id')
+})
+
+// DELETE - Delete A Product 
+
 
 // ****** ARTICLES ****** //
 
@@ -65,7 +76,7 @@ app.get('/articles', (req, res) => {
     res.render('articles', { allArticles });
 });
 
-// GET - Articles Form
+// GET - Create New Articles Form
 app.get('/articles/new', (req, res) => {
     res.render('artForm')
 })
@@ -77,15 +88,14 @@ app.post('/articles/new', (req, res) => {
     const newArticle = req.body;
     DS_Articles.add(newArticle);
     res.redirect('/articles');
-
 })
 
 // GET - Get Articles by Title
 // Not showing the title or any of the information inputted
 app.get('/articles/:title', (req, res) => {
     const { title } = req.params;
-    const arts = DS_Articles.getItemByTitle(title);
-    res.render('artDetail', {arts});
+    const targetArticle = DS_Articles.getItemByTitle(title);
+    res.render('artDetail', targetArticle);
 })
 
 

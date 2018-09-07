@@ -178,3 +178,7 @@ input[type=text]{
 #backToProducts, #backToForms, #backToArticleForm, #backToArticles {
     left: 12%;
 }
+
+#articleTitle{
+    font-style: italic;
+}
