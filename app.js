@@ -91,7 +91,6 @@ app.post('/articles/new', (req, res) => {
 })
 
 // GET - Get Articles by Title
-// Not showing the title or any of the information inputted
 app.get('/articles/:title', (req, res) => {
     const { title } = req.params;
     const targetArticle = DS_Articles.getItemByTitle(title);

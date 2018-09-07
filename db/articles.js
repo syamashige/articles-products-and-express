@@ -1,6 +1,5 @@
 class Articles {
     constructor() {
-        // this._count = 1;
         this._articleStorage = [];
     }
     all() {
