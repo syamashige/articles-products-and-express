@@ -1,14 +1,27 @@
-<form action="/products/edit" method="post" id="editForm">
+{{!-- action = "/resource?_method=PUT" --}}
+<form action="/products/{{id}}/edit?_method=PUT" method="post" id="editForm">
     <label id="editNameLabel">
         NAME: 
     <br>
-    <input type="text" name="nameEdit" id="editNameInput" placeholder="name">
+    <input type="text" name="name" id="editNameInput" placeholder="[Edit product name here]">
     </label>
     <br>
     <label id="editPriceLabel">
         PRICE:
         <br>
-        <input type="text" name="priceEdit" id="editPriceInput" placeholder="price">
+        <input type="text" name="price" id="editPriceInput" placeholder="[Edit product price here]">
+    </label>
+    <br>
+    <label id="editInventoryLabel">
+        INVENTORY: 
+        <br>
+        <input type="text" name="inventory" id="editInventoryInput" placeholder="[Edit product inventory level here]">
+    </label>
+    <br>
+    <label id="editDescriptionLabel">
+        DESCRIPTION: 
+        <br>
+        <input type="text" name="description" id="editDescriptionInput" placeholder="[Edit product description here]">
     </label>
     <input type="submit" value="SUBMIT" classname="submitButton">
 </form>

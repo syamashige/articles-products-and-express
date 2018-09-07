@@ -46,7 +46,6 @@ app.get('/products/:id', (req, res) => {
     const { id } = req.params;
     const prods = DS_Prod
         .getItemById(id)
-    // console.log('prods', prods);
     res.render('detail', prods)
 })
 
@@ -60,8 +59,17 @@ app.post('/products/new', (req, res) => {
 });
 
 // PUT - Edits A Product 
-app.put('/products/edit', (req, res) => {
-    //
+// Edit product by id 
+app.put('/products/:id/edit', (req, res) => {
+    const { id } = req.params;
+    // Target product by id 
+    const prodToEdit = DS_Prod.getItemById(id);
+    // If the new product name doesn't match the existing name - then set product name to new input
+    // If the new product price doesn't match the existing price - then set product price to new input value
+    // If the new product inventory doesn't match the exisitng inventory - then set product inventory to new input value
+    // If the new product description doesn't match the existing description - then set product description to new input value
+
+    // Redirect to the product's page with the edits in place
     res.redirect('/products/:id')
 })
 
