@@ -10,7 +10,6 @@ class Articles {
         return this._articleStorage.filter((article) => title == article.title)[0];
     }
     add(newArticle) {
-       // arts.urlTitle = encodeURI(arts.title);
         this._articleStorage.push(newArticle);
         return newArticle.title;
     }
