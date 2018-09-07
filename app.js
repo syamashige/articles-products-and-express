@@ -56,34 +56,6 @@ app.post('/products/new', (req, res) => {
     res.redirect('/products');
 });
 
-// // PUT - Edit A Product
-// app.put('/products/new', (req, res) => {
-//     const { id } = req.params;
-//     const editProd = DS_Prod.getItemById(id);
-//     if (req.body.name !== editProd.name) {
-//         editProd.name = req.body.name;
-//     }
-//     if (req.body.price !== editProd.price) {
-//         editProd.price = req.body.price;
-//     }
-//     if (req.body.inventory !== editProd.inventory) {
-//         editProd.inventory = req.body.inventory
-//     }
-//     if (req.body.description !== editProd.description) {
-//         editProd.description = req.body.description;
-//     }
-//     res.redirect('/products/:id')
-// })
-
-// // DELETE - Remove A Product By It's ID
-// app.delete('/products/:id', (req, res) => {
-//     const { id } = req.params;
-//     let deletedProd = DS_Prod.removeItemById(id);
-//     res.redirect('/products');
-// })
-
-    
-
 
 // ****** ARTICLES ****** //
 
@@ -119,30 +91,3 @@ app.get('/articles/:title', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Started app on port: ${PORT}`)
 });
-
-// ***** In app.js ***** //
-// const ItemRoutes = require('./routes/itemRoutes.js');
-// app.use('/item', ItemRoutes); //this way you won't have to include /item in your router file (it will automatically include '/item')
-
-//Router.use(myMiddleWareHere) // if you only want certain middleware to affect certain routes 
-
-
-// ***** In Router file ***** //
-// const Router = express.Router();
-// Router.get('/item/new', (req, res) => { 
-    
-// })
-
-// Router.post('/new', (req, res) => {
-
-// })
-
-// Router.put('/edit', (req, res) => {
-
-// })
-
-// Router.delete('/delete', (req, res) => {
-
-// })
-
-// module.export = Router
