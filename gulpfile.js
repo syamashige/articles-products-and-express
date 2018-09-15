@@ -23,6 +23,4 @@ gulp.task('watch', function () {
   gulp.watch('./views/**/*').on('change', browserSync.reload);
 });
 
-
-
 gulp.task('default', ['watch']);

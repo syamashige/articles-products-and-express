@@ -2,9 +2,11 @@
 const express = require('express');
 const Router = express.Router();
 
+//Hardcoded database for products
 const Products = require('../db/products.js');
 const DB_Products = new Products();
 
+//Error flag for adding a product
 let addingProductError = false;
 
 ////////////////////////////////////////////////////////////////////////

@@ -2,9 +2,11 @@
 const express = require('express');
 const Router = express.Router();
 
+//Hardcoded database for articles
 const Articles = require('../db/articles.js');
 const DB_Articles = new Articles();
 
+//Error flag for adding an article
 let addingArticleError = false;
 
 ////////////////////////////////////////////////////////////////////////

@@ -22,12 +22,18 @@ body {
 img:hover {
   opacity: 0.7; }
 
-.selectedItem {
+p {
   padding: 20px;
   font-family: 'Fredericka the Great', cursive;
   font-size: 3em;
-  color: #ffa4d2;
+  color: black;
   margin: auto; }
+
+p:hover {
+  color: lightcoral; }
+
+a:link {
+  text-decoration: none; }
 
 .sectionName {
   padding: 20px;
@@ -63,18 +69,12 @@ img:hover {
 .redirect:hover {
   color: mediumaquamarine; }
 
-p {
+.selectedItem {
   padding: 20px;
   font-family: 'Fredericka the Great', cursive;
   font-size: 3em;
-  color: black;
+  color: #ffa4d2;
   margin: auto; }
-
-p:hover {
-  color: lightcoral; }
-
-a:link {
-  text-decoration: none; }
 
 h1 {
   text-align: center;
@@ -84,12 +84,6 @@ h2 {
   color: black;
   text-align: center;
   font-family: 'Comfortaa', cursive; }
-
-textarea {
-  width: 300px;
-  height: 50px;
-  word-wrap: break-word;
-  font-size: 1em; }
 
 form {
   margin: 0 auto 0 auto;
@@ -101,6 +95,12 @@ label {
   font: 5em;
   font-weight: bold;
   text-align: center; }
+
+textarea {
+  width: 300px;
+  height: 50px;
+  word-wrap: break-word;
+  font-size: 1em; }
 
 input[type=submit] {
   background-color: white;

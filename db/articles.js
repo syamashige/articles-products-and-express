@@ -1,6 +1,8 @@
 class Articles {
   constructor() {
-    this._articleStorage = [];
+    this._articleStorage = [];  //hardcoded data storage
+
+    //Pre-added article items
     this.add({
       title: "Russian cuckoos are taking over Alaska",
       body: "Thanks to climate change, these crybaby parasites are heading to North America.",
@@ -19,17 +21,20 @@ class Articles {
   }
 
   //Methods
+
+  //Display all articles in storage
   all() {
     return [...this._articleStorage];
   }
 
+  //Display a specific article found by its title
   getArticleByTitle(title) {
-
     let filteredArray = this._articleStorage.filter(element => title == element.title)[0];
     console.log("filteredArray:\n", filteredArray);
     return filteredArray;
   }
 
+  //Remove an article from the db based on its title
   removeArticleByTitle(title) {
     let removedArticle = null;
     console.log("\narticleStorage before remove:\n", this._articleStorage);
@@ -43,13 +48,12 @@ class Articles {
     return removedArticle;
   }
 
-
+  //Add a new article to the db
   add(article) {
     article.urlTitle = encodeURI(article.title);
     this._articleStorage.push(article);
     return article.urlTitle;
   }
-
 }
 
 module.exports = Articles;

@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 const methodOverride = require('method-override');
 
+const knex = require('./knex/knex.js');
+
 const productRoutes = require('./routes/products.js');
 const articleRoutes = require('./routes/articles.js');
 
@@ -41,6 +43,7 @@ app.get("/", (req, res) => {
 app.use('/', productRoutes);
 app.use('/', articleRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Started app on port: ${PORT}`);
+//Server is listening
+app.listen(process.env.EXPRESS_CONTAINER_PORT, () => {
+  console.log(`Started app on port: ${process.env.EXPRESS_CONTAINER_PORT}`);
 });
