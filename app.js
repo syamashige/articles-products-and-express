@@ -11,7 +11,17 @@ const DS_Prod = new Products();
 const Articles = require('./db/articles.js')
 const DS_Articles = new Articles();
 
-const PORT = process.env.PORT || 8000;
+
+// const PORT = process.env.PORT || 8000;
+
+const knex = require('./knex/knex.js');
+// knex.raw('SELECT * FROM products')
+//     .then(results => {
+//         console.log('Results', results);
+//     })
+//     .catch(err => {
+//         console.log('error', err);
+//     });
 
 app.use(express.static('public'));
 
@@ -37,28 +47,69 @@ app.get('/products/new', (req, res) => {
 
 // GET - Products Page
 app.get('/products', (req, res) => {
-    const allProds = DS_Prod.all();
-    res.render('products', { allProds });
-});
+    console.log("Hello?")
+    // const allProds = DS_Prod.all();
+    // res.render('products', { allProds });
+    // knex.raw('SELECT * FROM products')
+    // DS_Prod.all()
+    // let test = DS_Prod.all();
+    // console.log('test', test);
+    knex.raw('SELECT * FROM products')    
+        .then(results => {
+            console.log("IZ GET PRODUCTTS??")
+            console.log('results', results);
+              const products = results.rows
+            res.render('products', { products })    
+        })
+        .catch(err => {
+        console.log('error', err)
+    })
+})
 
 // GET Products by Id
 app.get('/products/:id', (req, res) => {
     const { id } = req.params;
-    const prods = DS_Prod
-        .getItemById(id)
-    res.render('detail', prods)
-})
+    // const prods = DS_Prod
+    //     .getItemById(id)
+    // res.render('detail', prods)
+    knex.raw(`SELECT * FROM products WHERE id = ${id}`)
+        .then(results => {
+            console.log('product by id', results);
+            const products = results.rows;
+            res.render('detail', { products });
+        })
+        .catch(err => {
+            console.log('error getting product by id', err);
+        })
+});
+
 
 // POST - New Products 
 app.post('/products/new', (req, res) => {
-    const { id } = req.params;
-    const prods = DS_Prod.getItemById(id);
-    const prod = req.body;
-    DS_Prod.add(prod);
-    res.redirect('/products');
+    // const { } = req.params;
+    // console.log('req', req);
+    // console.log('res', res);
+    // console.log('req.params', req.params)
+
+    // console.log('body', req.body);
+    // const prods = DS_Prod.getItemById(id);
+    // const prod = req.body;
+    // DS_Prod.add(prod);
+    // res.redirect('/products');
+    const { name, price, inventory, description } = req.body;
+
+
+    knex.raw(`INSERT INTO products VALUES ('${name}', '${price}', '${inventory}', '${description}')`)
+    .then(results => {
+        console.log('insert results', results);
+    })
+    .catch(err => {
+        console.log('error', err);
+    });
+
 });
 
-// PUT - Edits A Product 
+// PUT - Edits A Product ()
 // Edit product by id 
 app.put('/products/:id/edit', (req, res) => {
     const { id } = req.params;
@@ -106,6 +157,6 @@ app.get('/articles/:title', (req, res) => {
 })
 
 
-app.listen(PORT, () => {
-    console.log(`Started app on port: ${PORT}`)
+app.listen(process.env.EXPRESS_CONTAINER_PORT, () => {
+    console.log(`Started app on port: ${process.env.EXPRESS_CONTAINER_PORT}`)
 });

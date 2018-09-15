@@ -1,10 +1,12 @@
 class Products {
     constructor() {
+        this.knex = require('../knex/knex.js');
         this._count = 1;
         this._storage = [];
     }
     all() {
-        return [... this._storage];
+        // return [... this._storage];
+        return this.knex.raw('SELECT * FROM products');
     }
     getItemById(id) {
         return this._storage.filter((prods) => id == prods.id)[0];

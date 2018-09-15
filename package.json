@@ -1,11 +1,13 @@
 {
   "name": "articles-products-and-express",
   "version": "1.0.0",
-  "description": "## Tests Let the **tests drive your development** or write your tests after. The choice is up to you! As for the testing tools use:   - [mocha](https://mochajs.org/)   - [chai](https://chaijs.com/)   - [supertest](https://github.com/visionmedia/supertest)     - [supertest is built upon `superagent` so these docs will be helpful as well](https://github.com/visionmedia/superagent)",
-  "main": "index.js",
+  "description": "",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "node app.js",
+    "migrate": "POSTGRES_HOST_NAME=localhost POSTGRES_CONTAINER_PORT=5432 knex migrate:latest",
+    "seed": "POSTGRES_HOST_NAME=localhost POSTGRES_CONTAINER_PORT=5432 knex seed:run"
   },
   "repository": {
     "type": "git",
@@ -18,9 +20,12 @@
   },
   "homepage": "https://github.com/syamashige/articles-products-and-express#readme",
   "dependencies": {
+    "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
-    "method-override": "^3.0.0"
+    "knex": "^0.15.2",
+    "method-override": "^3.0.0",
+    "pg": "^7.4.3"
   },
   "devDependencies": {
     "nodemon": "^1.18.4"
