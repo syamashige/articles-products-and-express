@@ -1,5 +1,7 @@
 class Articles {
   constructor() {
+    this.knex = require('../knex/knex.js');
+
     this._articleStorage = [];  //hardcoded data storage
 
     //Pre-added article items
@@ -24,7 +26,8 @@ class Articles {
 
   //Display all articles in storage
   all() {
-    return [...this._articleStorage];
+    // return [...this._articleStorage];
+    return this.knex.raw('SELECT * FROM article_items');
   }
 
   //Display a specific article found by its title

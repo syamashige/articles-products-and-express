@@ -41,12 +41,23 @@ Router.get("/products/:id", (req, res) => {
   res.render("product", selectedProductItem);
 });
 
-//GET '/products'; displays all Products add thus far
+//GET '/products'; displays all Products added thus far
 Router.get("/products", (req, res) => {
   console.log("\nThis is GET /products - index.hbs");
-  const productItems = DB_Products.all();
-  console.log("productItems:\n", productItems);
-  res.render('index', { productItems });
+
+  // const productItems = DB_Products.all();
+  // console.log("productItems:\n", productItems);
+  // res.render('index', { productItems });
+
+  DB_Products.all()
+    .then(results => {
+      const productItems = results.rows;
+      res.render('index', { productItems });
+    })
+    .catch(err => {
+      console.log('ERROR:', err);
+    });
+
 });
 
 //////////////////

@@ -5,8 +5,10 @@ const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 const methodOverride = require('method-override');
 
+//Knex setup
 const knex = require('./knex/knex.js');
 
+//Routes setup for products and articles
 const productRoutes = require('./routes/products.js');
 const articleRoutes = require('./routes/articles.js');
 
@@ -30,13 +32,23 @@ app.use(methodOverride('_method'));
 
 /////////////////////////////////////////
 
+//Knex
+// knex.raw('SELECT * FROM productItems')
+//   .then(results => {
+//     console.log("Results:", results);
+//   })
+//   .catch(err => {
+//     console.log("ERROR:", err);
+//   })
+
+
 //Render all products and articles; a homepage
 app.get("/", (req, res) => {
   const allProducts = DB_Products.all();
   const allArticles = DB_Articles.all();
   console.log("\nProducts:\n", allProducts);
   console.log("\nArticles:\n", allArticles);
-  res.render("home", { allProducts, allArticles });
+  res.render("home");
 });
 
 //Using Express router to access products and articles routes

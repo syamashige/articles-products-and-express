@@ -42,12 +42,22 @@ Router.get("/articles/:title", (req, res) => {
 
 });
 
-//GET '/articles'
+//GET '/articles'; displays all Articles added thus far
 Router.get("/articles", (req, res) => {
   console.log("\nThis is GET /articles - index.hbs");
-  const articleItems = DB_Articles.all();
-  console.log("articleItems:\n", articleItems);
-  res.render('index', { articleItems });
+
+  // const articleItems = DB_Articles.all();
+  // console.log("articleItems:\n", articleItems);
+  // res.render('index', { articleItems });
+
+  DB_Articles.all()
+    .then(results => {
+      const articleItems = results.rows;
+      res.render('index', { articleItems });
+    })
+    .catch(err => {
+      console.log('ERROR:', err);
+    })
 });
 
 //////////////////

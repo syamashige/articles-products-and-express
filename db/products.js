@@ -27,7 +27,8 @@ class Products {
 
   //Display all products in storage
   all() {
-    return [...this._productStorage];
+    // return [...this._productStorage];
+    return this.knex.raw('SELECT * FROM product_items');
   }
 
   //Display a specific product based on its ID
