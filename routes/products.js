@@ -24,31 +24,30 @@ Router.get("/products/new", (req, res) => {
 //GET '/products/:id/edit'; user can update information for a product
 Router.get("/products/:id/edit", (req, res) => {
   console.log("\nThis is GET products - edit");
-  //console.log(req.params);
   const { id } = req.params;
   console.log("ID for edit:", id);
-  const editProductItem = DB_Products.getProductById(id);
-  res.render("edit", { editProductItem });
+  DB_Products.getProductById(id)
+    .then(results => {
+      const editProductItem = results.rows[0];
+      console.log("editProductItem:", editProductItem);
+      res.render("edit", { editProductItem });
+    })
+    .catch(err => {
+      console.log("Edit error:", err);
+    });
+
 });
 
 //GET '/products/:id'; displays the selected product's info with the corresponding ID
 Router.get("/products/:id", (req, res) => {
   console.log("\nThis is GET /products/:id - product.hbs");
-  //console.log("req.params:", req.params);
-  // const { id } = req.params;
-  // console.log("id:", id);
-  // const selectedProductItem = DB_Products.getProductById(id);
-  // console.log("selectedProductItem:\n", selectedProductItem);
-  // res.render("product", selectedProductItem);
-
-
   // console.log("req.params:\n", req.params);
   const { id } = req.params;
   console.log("id:", id);
 
   DB_Products.getProductById(id)
     .then(results => {
-      const selectedProductItem = results.rows[0];
+      let selectedProductItem = results.rows[0];
       console.log("selectedProductItem:", results.rows[0]);
       res.render("product", selectedProductItem);
     })
@@ -60,11 +59,6 @@ Router.get("/products/:id", (req, res) => {
 //GET '/products'; displays all Products added thus far
 Router.get("/products", (req, res) => {
   console.log("\nThis is GET /products - index.hbs");
-
-  // const productItems = DB_Products.all();
-  // console.log("productItems:\n", productItems);
-  // res.render('index', { productItems });
-
   DB_Products.all()
     .then(results => {
       //console.log("WHAT IS THIS:", results);
@@ -90,37 +84,76 @@ Router.post("/products", (req, res) => {
     req.body.price = Number(req.body.price);
     req.body.inventory = Number(req.body.inventory);
     const newProductItem = req.body;
-    DB_Products.add(newProductItem);
-    res.redirect("/products");
+    DB_Products.add(newProductItem)
+      .then(() => {
+        res.redirect("/products");
+      })
+      .catch(err => {
+        console.log("POST error:", err);
+      })
   }
   else {
     addingProductError = true;
     res.render("new", { addingProductError });
   }
+
 });
 
 //PUT '/products/:id'
 Router.put("/products/:id", (req, res) => {
+  // console.log("\nreq.body @ products PUT:\n", req.body);
+  // console.log("req.params:", req.params);
+  // const { id } = req.params;
+  // let productToEdit = DB_Products.getProductById(id);
+  // console.log("\nproductToEdit:\n", productToEdit);
+  // if (req.body.name === "" || req.body.price === "" || req.body.inventory === "") {
+  //   res.render("edit", { productToEdit });
+  // }
+  // else {
+  //   if (req.body.name !== productToEdit.name) {
+  //     productToEdit.name = req.body.name;
+  //   }
+  //   if (req.body.price !== productToEdit.price) {
+  //     productToEdit.price = req.body.price;
+  //   }
+  //   if (req.body.inventory !== productToEdit.inventory) {
+  //     productToEdit.inventory = req.body.inventory;
+  //   }
+  //   res.redirect(`/products/${id}`);
+  // }
+
   console.log("\nreq.body @ products PUT:\n", req.body);
   console.log("req.params:", req.params);
   const { id } = req.params;
-  let productToEdit = DB_Products.getProductById(id);
-  console.log("\nproductToEdit:\n", productToEdit);
-  if (req.body.name === "" || req.body.price === "" || req.body.inventory === "") {
-    res.render("edit", { productToEdit });
-  }
-  else {
-    if (req.body.name !== productToEdit.name) {
-      productToEdit.name = req.body.name;
-    }
-    if (req.body.price !== productToEdit.price) {
-      productToEdit.price = req.body.price;
-    }
-    if (req.body.inventory !== productToEdit.inventory) {
-      productToEdit.inventory = req.body.inventory;
-    }
-    res.redirect(`/products/${id}`);
-  }
+  DB_Products.getProductById(id)
+    .then(results => {
+      let productToEdit = results.rows[0];
+      console.log("\nproductToEdit:\n", productToEdit);
+      if (req.body.name === "" || req.body.price === "" || req.body.inventory === "") {
+        console.log("I'm here1");
+        res.render("edit", { productToEdit });
+      }
+      else {
+        console.log("I'm here2");
+        if (req.body.name !== productToEdit.name) {
+          console.log("aaa");
+          productToEdit.name = req.body.name;
+        }
+        if (req.body.price !== productToEdit.price) {
+          console.log("bbb");
+          productToEdit.price = req.body.price;
+        }
+        if (req.body.inventory !== productToEdit.inventory) {
+          console.log("ccc");
+          productToEdit.inventory = req.body.inventory;
+        }
+        console.log("productToEdit after:", productToEdit);
+        res.redirect(`/products/${id}`);
+      }
+    })
+    .catch(err => {
+      console.log("PUT error:", err);
+    })
 });
 
 //DELETE '/products/:id'

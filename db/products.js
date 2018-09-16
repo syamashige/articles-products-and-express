@@ -57,9 +57,11 @@ class Products {
   //Add a new product to storage
   add(product) {
     product.id = this._count;
-    this._productStorage.push(product);
+    //this._productStorage.push(product);
     this._count++;
-    return product.id;
+    // return product.id;
+    console.log("productToAdd:\n", product);
+    return this.knex.raw(`INSERT INTO product_items (name, price, inventory) VALUES ('${product.name}', '${product.price}', '${product.inventory}')`);
   }
 }
 
