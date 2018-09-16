@@ -89,7 +89,7 @@ Router.post("/products", (req, res) => {
         res.redirect("/products");
       })
       .catch(err => {
-        console.log("POST error:", err);
+        console.log("POST product error:", err);
       })
   }
   else {

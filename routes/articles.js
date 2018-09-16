@@ -1,6 +1,7 @@
 //Route object that we can route our objects into
 const express = require('express');
 const Router = express.Router();
+const knex = require('../knex/knex.js');
 
 //Hardcoded database for articles
 const Articles = require('../db/articles.js');
@@ -33,13 +34,6 @@ Router.get("/articles/:title/edit", (req, res) => {
 //GET '/articles/:title'
 Router.get("/articles/:title", (req, res) => {
   console.log("\nThis is GET /articles/:title - articles.hbs");
-  //console.log("req.params:", req.params);
-  // const { title } = req.params;
-  // console.log("title:", title);
-  // const selectedArticleItem = DB_Articles.getArticleByTitle(title);
-  // console.log("\nselectedArticleItem:\n", selectedArticleItem);
-  // res.render("article", selectedArticleItem);
-
   const { title } = req.params;
   console.log("title:", title);
 
@@ -52,17 +46,11 @@ Router.get("/articles/:title", (req, res) => {
     .catch(err => {
       console.log("GET ERROR:", err);
     })
-
-
 });
 
 //GET '/articles'; displays all Articles added thus far
 Router.get("/articles", (req, res) => {
   console.log("\nThis is GET /articles - index.hbs");
-
-  // const articleItems = DB_Articles.all();
-  // console.log("articleItems:\n", articleItems);
-  // res.render('index', { articleItems });
 
   DB_Articles.all()
     .then(results => {
@@ -83,8 +71,13 @@ Router.post("/articles", (req, res) => {
   console.log("\nreq.body:\n", req.body);
   if (req.body.title !== "" && req.body.body !== "" && req.body.author !== "") {
     const newArticleItem = req.body;
-    DB_Articles.add(newArticleItem);
-    res.redirect("/articles");
+    DB_Articles.add(newArticleItem)
+      .then(() => {
+        res.redirect("/articles");
+      })
+      .catch(err => {
+        console.log("POST article error:", err);
+      })
   }
   else {
     addingArticleError = true;

@@ -56,8 +56,10 @@ class Articles {
   //Add a new article to the db
   add(article) {
     article.urlTitle = encodeURI(article.title);
-    this._articleStorage.push(article);
-    return article.urlTitle;
+    //this._articleStorage.push(article);
+    //return article.urlTitle;
+    console.log("articleToAdd:\n", article);
+    return this.knex.raw(`INSERT INTO article_items (title, body, author) VALUES ('${article.title}', '${article.body}','${article.author}')`);
   }
 }
 
