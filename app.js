@@ -68,20 +68,23 @@ app.get('/products', (req, res) => {
 
 // GET Products by Id
 app.get('/products/:id', (req, res) => {
-    const { id } = req.params;
+    // const { id } = req.params;
+    console.log('get product by id req.params', req.params)
     // const prods = DS_Prod
     //     .getItemById(id)
     // res.render('detail', prods)
-    knex.raw(`SELECT * FROM products WHERE id = ${id}`)
+    knex.raw(`SELECT * FROM products`)
         .then(results => {
+            const { id } = req.params;
             console.log('product by id', results);
-            const products = results.rows;
+            const products = results.rows[(id-1)];
+            console.log('results.rows[id]', results.rows[id]);
             res.render('detail', { products });
         })
         .catch(err => {
             console.log('error getting product by id', err);
         })
-});
+})
 
 
 // POST - New Products 
@@ -96,16 +99,19 @@ app.post('/products/new', (req, res) => {
     // const prod = req.body;
     // DS_Prod.add(prod);
     // res.redirect('/products');
-    const { name, price, inventory, description } = req.body;
+    const { prodName, prodPrice, prodInventory, prodDescription } = req.body;
+    console.log('req.body', req.body);
+    console.log('prodName', prodName);
+    console.log('name.name', req.body.name);
 
-
-    knex.raw(`INSERT INTO products VALUES ('${name}', '${price}', '${inventory}', '${description}')`)
-    .then(results => {
-        console.log('insert results', results);
-    })
-    .catch(err => {
-        console.log('error', err);
-    });
+    knex.raw(`INSERT INTO products(name, price, inventory, description) VALUES ('${req.body.name}', '${req.body.price}', '${req.body.inventory}', '${req.body.description}')`)
+        .then(results => {
+            console.log('insert results', results);
+            res.redirect('/products');
+        })
+        .catch(err => {
+            console.log('error', err);
+        });
 
 });
 
@@ -127,12 +133,19 @@ app.put('/products/:id/edit', (req, res) => {
 // DELETE - Delete A Product 
 
 
+
 // ****** ARTICLES ****** //
 
 // GET - Articles Page
 app.get('/articles', (req, res) => {
-    const allArticles = DS_Articles.all();
-    res.render('articles', { allArticles });
+    // const allArticles = DS_Articles.all();
+    // res.render('articles', { allArticles });
+    knex.raw('SELECT * FROM articles')
+        .then(results => {
+            console.log("IZ GET ARTICLES??");
+            console.log('article results', results);
+            
+    })
 });
 
 // GET - Create New Articles Form
@@ -142,11 +155,11 @@ app.get('/articles/new', (req, res) => {
 
 // POST - New Articles 
 app.post('/articles/new', (req, res) => {
-    const { title } = req.params;
-    const arts = DS_Articles.getItemByTitle(title);
-    const newArticle = req.body;
-    DS_Articles.add(newArticle);
-    res.redirect('/articles');
+    // const { title } = req.params;
+    // const arts = DS_Articles.getItemByTitle(title);
+    // const newArticle = req.body;
+    // DS_Articles.add(newArticle);
+    // res.redirect('/articles');
 })
 
 // GET - Get Articles by Title
