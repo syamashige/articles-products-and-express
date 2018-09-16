@@ -69,7 +69,7 @@ app.get('/products', (req, res) => {
 // GET Products by Id
 app.get('/products/:id', (req, res) => {
     // const { id } = req.params;
-    console.log('get product by id req.params', req.params)
+    // console.log('get product by id req.params', req.params)
     // const prods = DS_Prod
     //     .getItemById(id)
     // res.render('detail', prods)
@@ -78,7 +78,6 @@ app.get('/products/:id', (req, res) => {
             const { id } = req.params;
             console.log('product by id', results);
             const products = results.rows[(id-1)];
-            console.log('results.rows[id]', results.rows[id]);
             res.render('detail', { products });
         })
         .catch(err => {
@@ -120,11 +119,12 @@ app.post('/products/new', (req, res) => {
 app.put('/products/:id/edit', (req, res) => {
     const { id } = req.params;
     // Target product by id 
-    const prodToEdit = DS_Prod.getItemById(id);
+    // const prodToEdit = DS_Prod.getItemById(id);
     // If the new product name doesn't match the existing name - then set product name to new input
     // If the new product price doesn't match the existing price - then set product price to new input value
     // If the new product inventory doesn't match the exisitng inventory - then set product inventory to new input value
     // If the new product description doesn't match the existing description - then set product description to new input value
+
 
     // Redirect to the product's page with the edits in place
     res.redirect('/products/:id')
@@ -144,7 +144,11 @@ app.get('/articles', (req, res) => {
         .then(results => {
             console.log("IZ GET ARTICLES??");
             console.log('article results', results);
-            
+            const articles = results.rows;
+            res.render('articles', { articles });
+        })
+        .catch(err => {
+        console.log('error', err)
     })
 });
 
@@ -160,13 +164,40 @@ app.post('/articles/new', (req, res) => {
     // const newArticle = req.body;
     // DS_Articles.add(newArticle);
     // res.redirect('/articles');
-})
+
+    const { title, author, body } = req.body;
+    console.log('req.body', req.body);
+    console.log('title', title);
+
+    knex.raw(`INSERT INTO articles (title, author, body) VALUES ('${req.body.title}', '${req.body.author}','${req.body.body}')`)
+        .then(results => {
+            console.log('insert articles', results);
+            res.redirect('/articles');
+        })
+        .catch(err => {
+            console.log('error', err);
+        })
+});
 
 // GET - Get Articles by Title
 app.get('/articles/:title', (req, res) => {
-    const { title } = req.params;
-    const targetArticle = DS_Articles.getItemByTitle(title);
-    res.render('artDetail', targetArticle);
+    // const { title } = req.params;
+    // const targetArticle = DS_Articles.getItemByTitle(title);
+    // res.render('artDetail', targetArticle);
+    console.log('get articles by title', req.params);
+    
+    knex.raw(`SELECT * FROM articles`)
+        .then(results => {
+            const { title } = req.params;
+            // const { title } = req.body;
+            console.log('articles by id', title);
+            const articles = results.rows[title];
+            console.log('results.rows[title]', results.rows[title]);
+            res.render('artDetail', { articles });
+        })
+        .catch(err => {
+            console.log('error getting articles by title', err);
+    })
 })
 
 
