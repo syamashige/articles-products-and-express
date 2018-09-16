@@ -1,6 +1,7 @@
 //Route object that we can route our objects into
 const express = require('express');
 const Router = express.Router();
+const knex = require('../knex/knex.js');
 
 //Hardcoded database for products
 const Products = require('../db/products.js');
@@ -34,11 +35,26 @@ Router.get("/products/:id/edit", (req, res) => {
 Router.get("/products/:id", (req, res) => {
   console.log("\nThis is GET /products/:id - product.hbs");
   //console.log("req.params:", req.params);
+  // const { id } = req.params;
+  // console.log("id:", id);
+  // const selectedProductItem = DB_Products.getProductById(id);
+  // console.log("selectedProductItem:\n", selectedProductItem);
+  // res.render("product", selectedProductItem);
+
+
+  // console.log("req.params:\n", req.params);
   const { id } = req.params;
   console.log("id:", id);
-  const selectedProductItem = DB_Products.getProductById(id);
-  console.log("selectedProductItem:\n", selectedProductItem);
-  res.render("product", selectedProductItem);
+
+  DB_Products.getProductById(id)
+    .then(results => {
+      const selectedProductItem = results.rows[0];
+      console.log("selectedProductItem:", results.rows[0]);
+      res.render("product", selectedProductItem);
+    })
+    .catch(err => {
+      console.log("GET ERROR:", err);
+    });
 });
 
 //GET '/products'; displays all Products added thus far
@@ -51,7 +67,9 @@ Router.get("/products", (req, res) => {
 
   DB_Products.all()
     .then(results => {
+      //console.log("WHAT IS THIS:", results);
       const productItems = results.rows;
+      console.log("productItems:\n ", productItems);
       res.render('index', { productItems });
     })
     .catch(err => {

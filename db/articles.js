@@ -32,9 +32,11 @@ class Articles {
 
   //Display a specific article found by its title
   getArticleByTitle(title) {
-    let filteredArray = this._articleStorage.filter(element => title == element.title)[0];
-    console.log("filteredArray:\n", filteredArray);
-    return filteredArray;
+    // let filteredArray = this._articleStorage.filter(element => title == element.title)[0];
+    // console.log("filteredArray:\n", filteredArray);
+    // return filteredArray;
+    console.log("title at GET:", title);
+    return this.knex.raw(`SELECT * FROM article_items WHERE title = '${title}'`);
   }
 
   //Remove an article from the db based on its title

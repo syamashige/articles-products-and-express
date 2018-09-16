@@ -4,8 +4,6 @@ exports.up = function (knex, Promise) {
     table.string('title').notNullable();
     table.string('body').notNullable();
     table.string('author').notNullable();
-    table.timestamp('created_at').defaultTo(knex.fn.now())
-    table.timestamp('updated_at').defaultTo(knex.fn.now())
   })
 }
 

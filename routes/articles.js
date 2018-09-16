@@ -34,11 +34,25 @@ Router.get("/articles/:title/edit", (req, res) => {
 Router.get("/articles/:title", (req, res) => {
   console.log("\nThis is GET /articles/:title - articles.hbs");
   //console.log("req.params:", req.params);
+  // const { title } = req.params;
+  // console.log("title:", title);
+  // const selectedArticleItem = DB_Articles.getArticleByTitle(title);
+  // console.log("\nselectedArticleItem:\n", selectedArticleItem);
+  // res.render("article", selectedArticleItem);
+
   const { title } = req.params;
   console.log("title:", title);
-  const selectedArticleItem = DB_Articles.getArticleByTitle(title);
-  console.log("\nselectedArticleItem:\n", selectedArticleItem);
-  res.render("article", selectedArticleItem);
+
+  DB_Articles.getArticleByTitle(title)
+    .then(results => {
+      const selectedArticleItem = results.rows[0];
+      console.log("selectedArticleItem:\n", selectedArticleItem);
+      res.render("article", selectedArticleItem);
+    })
+    .catch(err => {
+      console.log("GET ERROR:", err);
+    })
+
 
 });
 

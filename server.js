@@ -6,7 +6,7 @@ const exphbs = require('express-handlebars');
 const methodOverride = require('method-override');
 
 //Knex setup
-const knex = require('./knex/knex.js');
+// const knex = require('./knex/knex.js');
 
 //Routes setup for products and articles
 const productRoutes = require('./routes/products.js');
@@ -31,16 +31,6 @@ app.set('view engine', '.hbs');
 app.use(methodOverride('_method'));
 
 /////////////////////////////////////////
-
-//Knex
-// knex.raw('SELECT * FROM productItems')
-//   .then(results => {
-//     console.log("Results:", results);
-//   })
-//   .catch(err => {
-//     console.log("ERROR:", err);
-//   })
-
 
 //Render all products and articles; a homepage
 app.get("/", (req, res) => {

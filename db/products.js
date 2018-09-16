@@ -33,9 +33,11 @@ class Products {
 
   //Display a specific product based on its ID
   getProductById(id) {
-    let filteredArray = this._productStorage.filter(element => id == element.id)[0];
-    //console.log("filteredArray:", filteredArray);
-    return filteredArray;
+    // let filteredArray = this._productStorage.filter(element => id == element.id)[0];
+    // //console.log("filteredArray:", filteredArray);
+    // return filteredArray;
+    console.log("id at GET:", id);
+    return this.knex.raw(`SELECT * FROM product_items WHERE id = ${id}`);
   }
 
   //Remove a specific product based on its ID
