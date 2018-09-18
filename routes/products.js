@@ -3,6 +3,7 @@ const router = express.Router();
 const knex = require('../knex/knex.js');
 
 
+
 // GET - Products Page
 router.get('/products', (req, res) => {
     console.log("Hello?")
@@ -32,14 +33,13 @@ router.get('/products/:id', (req, res) => {
     knex.raw(`SELECT * FROM products`)
         .then(results => {
             // console.log('product by id', results);
-            const products = results.rows[(id)-1];
+            const products = results.rows[(id) - 1];
             res.render('detail', { products });
         })
         .catch(err => {
             console.log('error getting product by id', err);
         })
-})
-
+});
 
 // POST - New Products 
 router.post('/products/new', (req, res) => {
@@ -62,7 +62,7 @@ router.get('/products/:id/edit', (req, res) => {
     const { id } = req.params;
     knex.raw(`SELECT * FROM products WHERE id =  ${id}`)
         .then(results => {
-            const thisProduct = results.rows[0];
+            let thisProduct = results.rows[0];
             res.render('edit', {thisProduct})
         })
         .catch(err => {
@@ -70,42 +70,51 @@ router.get('/products/:id/edit', (req, res) => {
         })
 });
 
-router.put('/products/:id', (req, res) => {
+// PUT - Edit Products by ID
+router.put('/products/:id/edit', (req, res) => {
     const { id } = req.params;
-    knex.raw(`SELECT * FROM products WHERE id = ${id}`)
-        .then(results => {
-            let editThisProduct = results.rows[0];
-            console.log('editThisProduct', editThisProduct);
-            if (req.body.name !== editThisProduct.name) {
-                console.log('Product name does not match');
-                editThisProduct.name = req.body.name;
-                console.log('Editing product name to:', editThisProduct.name);
-            }
-            if (req.body.price !== editThisProduct.price) {
-                console.log('Product price does not match');
-                editThisProduct.price = req.body.price;
-                console.log('Editing product price to:', editThisProduct.price);
-            }
-            if (req.body.inventory !== editThisProduct.inventory) {
-                console.log('Product inventory does not match');
-                editThisProduct.inventory = req.body.inventory;
-                console.log('Editing product inventory to:', editThisProduct.inventory);
-            }
-            if (req.body.description !== editThisProduct.description) {
-                console.log('Product description does not match');
-                editThisProduct.description = req.body.description;
-                console.log('Editing product description to:', editThisProduct.description);
-            }
-            console.log('Product has been edited');
-            console.log('Should be updated', editThisProduct);
-            res.redirect(`/products/${id}`);
+    console.log('editing product id', id);
+    console.log('editing product req.body', req.body)
+    // knex.raw(`SELECT * FROM products WHERE id = ${id} UPDATE products SET name = '${req.body.name}', price = '${req.body.price}', inventory = '${req.body.inventory}', description = '${req.body.description}'`); 
+    knex.raw(`UPDATE products SET name = '${req.body.name}', price = '${req.body.price}', inventory = '${req.body.inventory}', description = '${req.body.description}'`)
+        .then(() => {
+            // 
+            // console.log('editThisProduct', editThisProduct);
+            // console.log('edit req.body', req.body)
+            // if (req.body.name !== editThisProduct.name) {
+            //     console.log('Product name does not match');
+            //     editThisProduct.name = req.body.name;
+            //     console.log('Editing product name to:', editThisProduct.name);
+            // }
+            // if (req.body.price !== editThisProduct.price) {
+            //     console.log('Product price does not match');
+            //     editThisProduct.price = req.body.price;
+            //     console.log('Editing product price to:', editThisProduct.price);
+            // }
+            // if (req.body.inventory !== editThisProduct.inventory) {
+            //     console.log('Product inventory does not match');
+            //     editThisProduct.inventory = req.body.inventory;
+            //     console.log('Editing product inventory to:', editThisProduct.inventory);
+            // }
+            // if (req.body.description !== editThisProduct.description) {
+            //     console.log('Product description does not match');
+            //     editThisProduct.description = req.body.description;
+            //     console.log('Editing product description to:', editThisProduct.description);
+            // }
+            // console.log('Product has been edited');
+            // console.log('Should be updated', editThisProduct);
+            // console.log('new results', results);
+            // res.render('edit', { editThisProduct });
+            res.redirect(`/products/${id}`)
         })
         .catch(err => {
             console.log('error updating product', err);
         })
-});
-
+}); 
 
 // DELETE - Delete A Product 
+// router.delete('/products/:id', (req, res) => {
+
+// })
 
 module.exports = router;

@@ -1,7 +1,6 @@
 body{
     background-color: black;
     color: white;
-    /* text-align: center; */
     font-family: 'Poiret One', cursive;
 }
 
@@ -26,42 +25,11 @@ h1{
 }
 
 
-
-/* #createLink {
-    align-content: center;
-}
-
-#prodLinkDiv {
-    display: inline-block;
-    text-decoration: none;
-    color: white;
-    font-size: 25px;
-    text-shadow: 2px 5px darkgrey;
-    text-align: center;
-    padding: 5%;
-}
-
-#artLinkDiv {
-    display: inline-block;
-    text-decoration: none;
-    color: white;
-    font-size: 25px;
-    text-shadow: 2px 5px darkgrey;
-    text-align: center;
-    padding: 5%;
-} */
-
 #container{
-    /* display: inline-block; */
     display: flex;
 }
 
 #prodDiv, #articleDiv {
-    /* display: inline-block;
-    d
-    text-align: left;
-    margin-left: 25%; */
-    /* background-color: white; */
     height: auto;
     width: 50%;
     border: 1px solid white; 
@@ -76,7 +44,6 @@ h1{
 
 #createDiv {
     padding: 15% 10% 10% 10%; 
-    /* padding: 10%; */
     background-image: url('/assets/abstract-blue3.png');
     background-size: cover;
     background-repeat: no-repeat;
@@ -93,19 +60,12 @@ h1{
     text-decoration: none;
 }
 
-
-/* #createForm {
-    text-align: center;
-    margin: 10%;
-} */
-
 #formBackground, #articleFormBackground{
     margin: 0;
     position: absolute;
     height: 100%;
     width: 100%;
     background-repeat: no-repeat;
-    /* opacity: 0; */
     z-index: -1;
 }
 
@@ -113,7 +73,6 @@ h1{
     margin-left: 1%;
     color: white;
     display: block;
-    /* text-shadow: 2px 5px darkgrey; */
     font-weight: bolder;
 }
 
@@ -166,7 +125,6 @@ input[type=text]{
     background-color: black;
     color: white;
     font-size: 15px;
-    /* text-shadow: 2px 5px darkgrey; */
     border: 2px solid white;
     padding: 0.5%;
     border-radius: 4px;
