@@ -31,8 +31,8 @@ app.get('/', (req, res) => {
     res.render('home');
 });
 
-app.use('/', productRouter);
-app.use('/', articleRouter);
+app.use('/products', productRouter);
+app.use('/articles', articleRouter);
 
 app.listen(process.env.EXPRESS_CONTAINER_PORT, () => {
     console.log(`Started app on port: ${process.env.EXPRESS_CONTAINER_PORT}`)

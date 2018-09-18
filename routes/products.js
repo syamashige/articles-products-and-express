@@ -5,7 +5,7 @@ const knex = require('../knex/knex.js');
 
 
 // GET - Products Page
-router.get('/products', (req, res) => {
+router.get('/', (req, res) => {
     console.log("Hello?")
     knex.raw('SELECT * FROM products')
         .then(results => {
@@ -20,13 +20,13 @@ router.get('/products', (req, res) => {
 });
 
 //GET - Create New Products Form
-router.get('/products/new', (req, res) => {
+router.get('/new', (req, res) => {
     console.log('Products Form')
     res.render('form');
 });
 
 // GET Products by Id
-router.get('/products/:id', (req, res) => {
+router.get('/:id', (req, res) => {
     const { id } = req.params;
     console.log('Product ID', id);
     console.log('Hitting Get Products by ID')
@@ -42,7 +42,7 @@ router.get('/products/:id', (req, res) => {
 });
 
 // POST - New Products 
-router.post('/products/new', (req, res) => {
+router.post('/new', (req, res) => {
     console.log('New Product')
     const { prodName, prodPrice, prodInventory, prodDescription } = req.body;
 
@@ -58,7 +58,7 @@ router.post('/products/new', (req, res) => {
 });
 
 // GET - Product By ID Edit Form 
-router.get('/products/:id/edit', (req, res) => {
+router.get('/:id/edit', (req, res) => {
     const { id } = req.params;
     knex.raw(`SELECT * FROM products WHERE id =  ${id}`)
         .then(results => {
@@ -71,40 +71,15 @@ router.get('/products/:id/edit', (req, res) => {
 });
 
 // PUT - Edit Products by ID
-router.put('/products/:id/edit', (req, res) => {
+router.put('/:id', (req, res) => {
     const { id } = req.params;
     console.log('editing product id', id);
     console.log('editing product req.body', req.body)
     // knex.raw(`SELECT * FROM products WHERE id = ${id} UPDATE products SET name = '${req.body.name}', price = '${req.body.price}', inventory = '${req.body.inventory}', description = '${req.body.description}'`); 
     knex.raw(`UPDATE products SET name = '${req.body.name}', price = '${req.body.price}', inventory = '${req.body.inventory}', description = '${req.body.description}'`)
-        .then(() => {
-            // 
-            // console.log('editThisProduct', editThisProduct);
-            // console.log('edit req.body', req.body)
-            // if (req.body.name !== editThisProduct.name) {
-            //     console.log('Product name does not match');
-            //     editThisProduct.name = req.body.name;
-            //     console.log('Editing product name to:', editThisProduct.name);
-            // }
-            // if (req.body.price !== editThisProduct.price) {
-            //     console.log('Product price does not match');
-            //     editThisProduct.price = req.body.price;
-            //     console.log('Editing product price to:', editThisProduct.price);
-            // }
-            // if (req.body.inventory !== editThisProduct.inventory) {
-            //     console.log('Product inventory does not match');
-            //     editThisProduct.inventory = req.body.inventory;
-            //     console.log('Editing product inventory to:', editThisProduct.inventory);
-            // }
-            // if (req.body.description !== editThisProduct.description) {
-            //     console.log('Product description does not match');
-            //     editThisProduct.description = req.body.description;
-            //     console.log('Editing product description to:', editThisProduct.description);
-            // }
-            // console.log('Product has been edited');
-            // console.log('Should be updated', editThisProduct);
-            // console.log('new results', results);
-            // res.render('edit', { editThisProduct });
+        .then(results => {
+            let editThisProduct = results.rows[(id)-1];
+            // res.render('detail', { editThisProduct });
             res.redirect(`/products/${id}`)
         })
         .catch(err => {
@@ -113,8 +88,16 @@ router.put('/products/:id/edit', (req, res) => {
 }); 
 
 // DELETE - Delete A Product 
-// router.delete('/products/:id', (req, res) => {
-
-// })
+router.delete('/products/:id', (req, res) => {
+    const { id } = req.params;
+    console.log('Deleting item at', id);
+    knex.raw(`DELETE FROM products WHERE id = ${id}`)
+        .then(results => {
+            res.redirect('/products');
+        })
+        .catch(err => {
+            console.log('Error in Deleting', err);
+        })
+});
 
 module.exports = router;
