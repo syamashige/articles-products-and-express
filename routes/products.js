@@ -73,12 +73,19 @@ router.get('/:id/edit', (req, res) => {
 // PUT - Edit Products by ID
 router.put('/:id', (req, res) => {
     const { id } = req.params;
+    // let { name, price, inventory, description } = req.body;
     console.log('editing product id', id);
     console.log('editing product req.body', req.body)
-    // knex.raw(`SELECT * FROM products WHERE id = ${id} UPDATE products SET name = '${req.body.name}', price = '${req.body.price}', inventory = '${req.body.inventory}', description = '${req.body.description}'`); 
-    knex.raw(`UPDATE products SET name = '${req.body.name}', price = '${req.body.price}', inventory = '${req.body.inventory}', description = '${req.body.description}'`)
+    // knex.raw(`SELECT * FROM products WHERE id = ${id}, UPDATE products SET name = '${req.body.name}', price = '${req.body.price}', inventory = '${req.body.inventory}', description = '${req.body.description}'`)
+    // knex.raw(`UPDATE products SET name = '${req.body.name}', price = '${req.body.price}', inventory = '${req.body.inventory}e', description = '${req.body.description}'`)
+    knex('products').where({ id: id }).update({
+        name: req.body.name,
+        price: req.body.price,
+        inventory: req.body.inventory,
+        description: req.body.description
+    })
         .then(results => {
-            let editThisProduct = results.rows[(id)-1];
+            // let editThisProduct = results.rows[(id)-1];
             // res.render('detail', { editThisProduct });
             res.redirect(`/products/${id}`)
         })
@@ -88,7 +95,7 @@ router.put('/:id', (req, res) => {
 }); 
 
 // DELETE - Delete A Product 
-router.delete('/products/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
     const { id } = req.params;
     console.log('Deleting item at', id);
     knex.raw(`DELETE FROM products WHERE id = ${id}`)
