@@ -1,5 +1,9 @@
+const express = require('express');
+const router = express.Router();
+const knex = require('../knex/knex.js');
+
 // GET - Articles Page
-app.get('/articles', (req, res) => {
+router.get('/articles', (req, res) => {
     knex.raw('SELECT * FROM articles')
         .then(results => {
             console.log("IZ GET ARTICLES??");
@@ -13,12 +17,12 @@ app.get('/articles', (req, res) => {
 });
 
 // GET - Create New Articles Form
-app.get('/articles/new', (req, res) => {
+router.get('/articles/new', (req, res) => {
     res.render('artForm')
 })
 
 // POST - New Articles 
-app.post('/articles/new', (req, res) => {
+router.post('/articles/new', (req, res) => {
     const { title, author, body } = req.body;
     console.log('req.body', req.body);
     console.log('title', title);
@@ -34,7 +38,7 @@ app.post('/articles/new', (req, res) => {
 });
 
 // GET - Get Articles by Title
-app.get('/articles/:title', (req, res) => {
+router.get('/articles/:title', (req, res) => {
     console.log('get articles by title', req.params);
     
     knex.raw(`SELECT * FROM articles`)
@@ -50,3 +54,5 @@ app.get('/articles/:title', (req, res) => {
             console.log('error getting articles by title', err);
     })
 })
+
+module.exports = router;

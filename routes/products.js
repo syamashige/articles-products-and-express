@@ -1,22 +1,30 @@
 const express = require('express');
+const router = express.Router();
+const knex = require('../knex/knex.js');
 
 // GET - Products Page
-app.get('/products', (req, res) => {
+router.get('/products', (req, res) => {
     console.log("Hello?")
-    knex.raw('SELECT * FROM products')    
+    knex.raw('SELECT * FROM products')
         .then(results => {
             console.log("IZ GET PRODUCTTS??")
             console.log('results', results);
-              const products = results.rows
-            res.render('products', { products })    
+            const products = results.rows
+            res.render('products', { products })
         })
         .catch(err => {
-        console.log('error', err)
-    })
-})
+            console.log('error', err)
+        })
+});
+
+//GET - Create New Products Form
+router.get('/products/new', (req, res) => {
+    console.log('Products Form')
+    res.render('form');
+});
 
 // GET Products by Id
-app.get('/products/:id', (req, res) => {
+router.get('/products/:id', (req, res) => {
     const { id } = req.params;
     console.log('Product ID', id);
     console.log('Hitting Get Products by ID')
@@ -33,7 +41,7 @@ app.get('/products/:id', (req, res) => {
 
 
 // POST - New Products 
-app.post('/products/new', (req, res) => {
+router.post('/products/new', (req, res) => {
     console.log('New Product')
     const { prodName, prodPrice, prodInventory, prodDescription } = req.body;
     // console.log('req.body', req.body);
@@ -52,33 +60,26 @@ app.post('/products/new', (req, res) => {
 });
 
 // Display the edit form
-app.get('/products/:id/edit', (req, res) => {
-    console.log('Edit Form?')
-    
-    res.render('edit');
-});
+// router.get('/products/:id/edit', (req, res) => {
+//     console.log('Edit Form?')
+//     res.render('edit');
+// });
 
 // PUT - Edits A Product ()
 // Edit product by id 
-app.put('/products/:id/edit', (req, res) => {
+router.get('/products/:id/edit', (req, res) => {
     const { id } = req.params;
-    knex.raw(`SELECT * FROM products WHERE ${id} = ${products.id} UPDATE products SET name=${req.body.name}, price=${req.body.price}, inventory=${req.body.inventory}, body=${req.body.description}`)
+    knex.raw(`SELECT * FROM products WHERE id =  ${id}`)
         .then(results => {
-            res.redirect('/products/:id');
+            const editThisProduct = results.rows[0];
+            res.render('edit', {editThisProduct})
         })
         .catch(err => {
             console.log('error', err);
-    })
-    // Target product by id 
-    // const prodToEdit = DS_Prod.getItemById(id);
-    // If the new product name doesn't match the existing name - then set product name to new input
-    // If the new product price doesn't match the existing price - then set product price to new input value
-    // If the new product inventory doesn't match the exisitng inventory - then set product inventory to new input value
-    // If the new product description doesn't match the existing description - then set product description to new input value
+        })
+});
 
-
-    // Redirect to the product's page with the edits in place
-//     res.redirect('/products/:id')
-// })
 
 // DELETE - Delete A Product 
+
+module.exports = router;
