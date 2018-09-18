@@ -119,7 +119,6 @@ Router.put("/articles/:title", (req, res) => {
         console.log("PUT article error2:", err);
       });
   }
-
 });
 
 //DELETE '/articles/:title'
@@ -127,11 +126,13 @@ Router.delete("/articles/:title", (req, res) => {
   console.log("\nThis is DELETE for articles.");
   console.log("req.params:", req.params);
   const { title } = req.params;
-  //Find the article in storage and remove it
-  let deletedArticle = DB_Articles.removeArticleByTitle(title);
-  console.log("\nCheck deletedArticle:", deletedArticle);
-  console.log("\nCheck remaining articles:\n", DB_Articles.all());
-  res.redirect('/articles');
+  DB_Articles.removeArticleByTitle(title)
+    .then(() => {
+      res.redirect('/articles');
+    })
+    .catch(err => {
+      console.log("DELETE article error:", err);
+    });
 });
 
 module.exports = Router;

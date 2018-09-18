@@ -47,16 +47,16 @@ class Articles {
 
   //Remove an article from the db based on its title
   removeArticleByTitle(title) {
-    let removedArticle = null;
-    console.log("\narticleStorage before remove:\n", this._articleStorage);
-    this._articleStorage.forEach((element, index) => {
-      if (element.title === title) {
-        removedArticle = this._articleStorage.splice(index, 1);
-      }
-    });
-    console.log("\narticleStorage after remove:\n", this._articleStorage);
-
-    return removedArticle;
+    // let removedArticle = null;
+    // console.log("\narticleStorage before remove:\n", this._articleStorage);
+    // this._articleStorage.forEach((element, index) => {
+    //   if (element.title === title) {
+    //     removedArticle = this._articleStorage.splice(index, 1);
+    //   }
+    // });
+    // console.log("\narticleStorage after remove:\n", this._articleStorage);
+    console.log("REMOVE title:", title);
+    return this.knex.raw(`DELETE FROM article_items WHERE title = '${title}'`);
   }
 
   //Add a new article to the db

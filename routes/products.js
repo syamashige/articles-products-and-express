@@ -133,12 +133,13 @@ Router.delete("/products/:id", (req, res) => {
   console.log("\nThis is DELETE for products.");
   console.log("req.params:", req.params);
   const { id } = req.params;
-  //Find the product in storage and remove it
-  let deletedProduct = DB_Products.removeProductById(id);
-  console.log("\nCheck deletedProduct:", deletedProduct);
-  console.log("\nCheck remaining products:\n", DB_Products.all());
-
-  res.redirect('/products');
+  DB_Products.removeProductById(id)
+    .then(() => {
+      res.redirect('/products');
+    })
+    .catch(err => {
+      console.log("DELETE error:", err);
+    });
 });
 
 module.exports = Router;

@@ -48,16 +48,8 @@ class Products {
 
   //Remove a specific product based on its ID
   removeProductById(id) {
-    let removedProduct = null;
-    console.log("\nproductStorage before remove:\n", this._productStorage);
-    this._productStorage.forEach((element, index) => {
-      if (element.id === Number(id)) {
-        removedProduct = this._productStorage.splice(index, 1);
-      }
-    });
-    console.log("\nproductStorage after remove:\n", this._productStorage);
-
-    return removedProduct;
+    console.log("REMOVE id:", id);
+    return this.knex.raw(`DELETE FROM product_items WHERE id = ${id}`);
   }
 
 
