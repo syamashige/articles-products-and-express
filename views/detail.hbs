@@ -1,11 +1,13 @@
-<h2>{{products.name}}</h2>
+{{#with products}}
+<h2>{{name}}</h2>
 <br>
-<h3>Price: {{products.price}}</h3>
-<h3>Quantity: {{products.inventory}}</h3>
+<h3>Price: {{price}}</h3>
+<h3>Quantity: {{inventory}}</h3>
 <br>
-<p>{{products.description}}</p>
+<p>{{description}}</p>
 <br>
 <br>
-<a href="/products/{{products.id}}/edit">EDIT</a>
+<a href="/products/{{id}}/edit">EDIT</a>
+{{/with}}
 {{> footer}}
 {{> backToProducts}}

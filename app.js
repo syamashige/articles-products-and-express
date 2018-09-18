@@ -5,11 +5,12 @@ const methodOverride = require('method-override');
 const bp = require('body-parser');
 const exphbs = require('express-handlebars')
 
-const Products = require('./db/products.js');
-const DS_Prod = new Products();
+// Not using these anymore:
+// const Products = require('./db/products.js');
+// const DS_Prod = new Products();
 
-const Articles = require('./db/articles.js')
-const DS_Articles = new Articles();
+// const Articles = require('./db/articles.js')
+// const DS_Articles = new Articles();
 
 const productRouter = require('./routes/products.js');
 const articleRouter = require('./routes/articles.js');

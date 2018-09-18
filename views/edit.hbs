@@ -1,6 +1,6 @@
 {{!-- action = "/resource?_method=PUT" --}}
-{{#with editThisProduct}}
-<form action="/products/{{products.id}}/edit?_method=PUT" method="post" id="editForm">
+{{#with thisProduct}}
+<form action="/products/{{id}}?_method=PUT" method="post" id="editForm">
     <label id="editNameLabel">
         NAME: 
     <br>
