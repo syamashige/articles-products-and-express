@@ -44,9 +44,6 @@ router.get('/products/:id', (req, res) => {
 router.post('/products/new', (req, res) => {
     console.log('New Product')
     const { prodName, prodPrice, prodInventory, prodDescription } = req.body;
-    // console.log('req.body', req.body);
-    // console.log('prodName', prodName);
-    // console.log('name.name', req.body.name);
 
     knex.raw(`INSERT INTO products(name, price, inventory, description) VALUES ('${req.body.name}', '${req.body.price}', '${req.body.inventory}', '${req.body.description}')`)
         .then(results => {
@@ -59,11 +56,6 @@ router.post('/products/new', (req, res) => {
 
 });
 
-// Display the edit form
-// router.get('/products/:id/edit', (req, res) => {
-//     console.log('Edit Form?')
-//     res.render('edit');
-// });
 
 // PUT - Edits A Product ()
 // Edit product by id 
