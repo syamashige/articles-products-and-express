@@ -40,6 +40,12 @@ class Products {
     return this.knex.raw(`SELECT * FROM product_items WHERE id = ${id}`);
   }
 
+  updateProduct(id, product) {
+    console.log("UPDATE id:", id);
+    console.log("UPDATE product:", product);
+    return this.knex.raw(`UPDATE product_items SET name = '${product.name}', price = '${product.price}', inventory = '${product.inventory}' WHERE id = ${id}`);
+  }
+
   //Remove a specific product based on its ID
   removeProductById(id) {
     let removedProduct = null;
@@ -54,6 +60,7 @@ class Products {
     return removedProduct;
   }
 
+
   //Add a new product to storage
   add(product) {
     product.id = this._count;
@@ -63,6 +70,7 @@ class Products {
     console.log("productToAdd:\n", product);
     return this.knex.raw(`INSERT INTO product_items (name, price, inventory) VALUES ('${product.name}', '${product.price}', '${product.inventory}')`);
   }
+
 }
 
 module.exports = Products;

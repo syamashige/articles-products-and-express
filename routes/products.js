@@ -101,59 +101,31 @@ Router.post("/products", (req, res) => {
 
 //PUT '/products/:id'
 Router.put("/products/:id", (req, res) => {
-  // console.log("\nreq.body @ products PUT:\n", req.body);
-  // console.log("req.params:", req.params);
-  // const { id } = req.params;
-  // let productToEdit = DB_Products.getProductById(id);
-  // console.log("\nproductToEdit:\n", productToEdit);
-  // if (req.body.name === "" || req.body.price === "" || req.body.inventory === "") {
-  //   res.render("edit", { productToEdit });
-  // }
-  // else {
-  //   if (req.body.name !== productToEdit.name) {
-  //     productToEdit.name = req.body.name;
-  //   }
-  //   if (req.body.price !== productToEdit.price) {
-  //     productToEdit.price = req.body.price;
-  //   }
-  //   if (req.body.inventory !== productToEdit.inventory) {
-  //     productToEdit.inventory = req.body.inventory;
-  //   }
-  //   res.redirect(`/products/${id}`);
-  // }
-
   console.log("\nreq.body @ products PUT:\n", req.body);
   console.log("req.params:", req.params);
   const { id } = req.params;
-  DB_Products.getProductById(id)
-    .then(results => {
-      let productToEdit = results.rows[0];
-      console.log("\nproductToEdit:\n", productToEdit);
-      if (req.body.name === "" || req.body.price === "" || req.body.inventory === "") {
-        console.log("I'm here1");
+  if (req.body.name === "" || req.body.price === "" || req.body.inventory === "") {
+    console.log("I'm here1");
+    DB_Products.getProductById(id)
+      .then(results => {
+        let productToEdit = results.rows[0];
+        console.log("productToEdit:", productToEdit);
         res.render("edit", { productToEdit });
-      }
-      else {
-        console.log("I'm here2");
-        if (req.body.name !== productToEdit.name) {
-          console.log("aaa");
-          productToEdit.name = req.body.name;
-        }
-        if (req.body.price !== productToEdit.price) {
-          console.log("bbb");
-          productToEdit.price = req.body.price;
-        }
-        if (req.body.inventory !== productToEdit.inventory) {
-          console.log("ccc");
-          productToEdit.inventory = req.body.inventory;
-        }
-        console.log("productToEdit after:", productToEdit);
+      })
+      .catch(err => {
+        console.log("PUT products error1:", err);
+      });
+  }
+  else {
+    console.log("I'm here2");
+    DB_Products.updateProduct(id, req.body)
+      .then(() => {
         res.redirect(`/products/${id}`);
-      }
-    })
-    .catch(err => {
-      console.log("PUT error:", err);
-    })
+      })
+      .catch(err => {
+        console.log("PUT product error2:", err);
+      });
+  }
 });
 
 //DELETE '/products/:id'

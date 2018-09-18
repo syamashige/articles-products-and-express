@@ -27,8 +27,15 @@ Router.get("/articles/:title/edit", (req, res) => {
   //console.log("req.params:", req.params);
   const { title } = req.params;
   console.log("Title for edit:", title);
-  const editArticleItem = DB_Articles.getArticleByTitle(title);
-  res.render("edit", { editArticleItem });
+  DB_Articles.getArticleByTitle(title)
+    .then(results => {
+      const editArticleItem = results.rows[0];
+      console.log("editArticleItem:", editArticleItem);
+      res.render("edit", { editArticleItem });
+    })
+    .catch(err => {
+      console.log("EDIT article error:", err);
+    });
 });
 
 //GET '/articles/:title'
@@ -90,22 +97,27 @@ Router.put("/articles/:title", (req, res) => {
   console.log("\nreq.body @ articles PUT:\n", req.body);
   console.log("req.params:", req.params);
   const { title } = req.params;
-  let articleToEdit = DB_Articles.getArticleByTitle(title);
-  console.log("\narticleToEdit:\n", articleToEdit);
   if (req.body.title === "" || req.body.body === "" || req.body.author === "") {
-    res.render("edit", { articleToEdit });
+    console.log("I'm here1");
+    DB_Articles.getArticleByTitle(title)
+      .then(results => {
+        let articleToEdit = results.rows[0];
+        console.log("articleToEdit:", articleToEdit);
+        res.render("edit", { articleToEdit });
+      })
+      .catch(err => {
+        console.log("PUT articles error1:", err);
+      });
   }
   else {
-    if (req.body.title !== articleToEdit.title) {
-      articleToEdit.title = req.body.title;
-    }
-    if (req.body.body !== articleToEdit.body) {
-      articleToEdit.body = req.body.body;
-    }
-    if (req.body.author !== articleToEdit.author) {
-      articleToEdit.author = req.body.author;
-    }
-    res.redirect(`/articles/${articleToEdit.title}`);
+    console.log("I'm here2");
+    DB_Articles.updateArticle(title, req.body)
+      .then(() => {
+        res.redirect(`/articles/${req.body.title}`);
+      })
+      .catch(err => {
+        console.log("PUT article error2:", err);
+      });
   }
 
 });

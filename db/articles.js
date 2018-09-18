@@ -39,6 +39,12 @@ class Articles {
     return this.knex.raw(`SELECT * FROM article_items WHERE title = '${title}'`);
   }
 
+  updateArticle(title, article) {
+    console.log("entered title:", title);
+    console.log("UPDATE article:", article);
+    return this.knex.raw(`UPDATE article_items SET title = '${article.title}', body = '${article.body}', author = '${article.author}' WHERE title = '${title}'`);
+  }
+
   //Remove an article from the db based on its title
   removeArticleByTitle(title) {
     let removedArticle = null;
