@@ -63,13 +63,15 @@ router.get('/:title/edit', (req, res) => {
 // PUT - Edit Articles by Title
 router.put('/:title', (req, res) => {
     const { title } = req.params;
-    knex('articles').where({ 'title': `${title}` }).update({
+    const { id } = req.params;
+    console.log('req.body', req.body)
+    knex('articles').where({ 'title': title }).update({
         title: req.body.title,
         author: req.body.author,
         body: req.body.body
     })
         .then(results => {
-            res.redirect(`/articles/'${title}'`)
+            res.redirect('/articles')
         })
         .catch(err => {
             console.log('error updating article', err);
