@@ -1,8 +1,12 @@
 {{!-- <h3>[INSERT PRODUCTS HERE]</h3> --}}
 {{!-- <img src="/assets/abstract-blue2.jpg" width="100%" height="100%" background-size="cov" alt="productsHeader"> --}}
+{{> footer}}
 {{#each products}}
+<div id = "productsContainer">
 <div>
-    <a href="/products/{{id}}" class="productName">{{name}}</a>
+    <a href="/products/{{id}}" id="productName">{{name}}</a>
+</div>
+<br>
 </div>
 {{/each}}
 <br>
@@ -10,5 +14,6 @@
 
 
 {{> backToForms}}
-{{> footer}} 
+{{> backToProducts}}
+{{!-- {{> footer}}  --}}
 

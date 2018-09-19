@@ -1,4 +1,5 @@
 {{#with products}}
+<div id="detailsPageContainer">
 <h2>{{name}}</h2>
 <br>
 <h3>Price: {{price}}</h3>
@@ -7,8 +8,17 @@
 <p>{{description}}</p>
 <br>
 <br>
-<a href="/products/{{id}}/edit">EDIT</a>
+<a href="/products/{{id}}/edit" id="editThis">
+<img src="/assets/edit-icon.png" width="40" height="40" alt="edit-icon">
+</a>
+</div>
 {{/with}}
-<br>
+
+{{#with products}}
+<form action="/products/{{id}}?_method=DELETE" method="post">
+    <input type="submit" id="deleteButton" value="DELETE"> {{/with}}
+</form>
+
 {{> footer}}
 {{> backToProducts}}
+{{> backToForms}}

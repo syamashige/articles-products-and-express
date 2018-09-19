@@ -1,9 +1,12 @@
 {{#each articles}}
+<div id="articlesContainer">
 <div>
-    <a href="/articles/{{title}}" class="articleTitle">{{title}}</a>
+    <a href="/articles/{{title}}" id="articleTitle">{{title}}</a>
+</div>
 </div>
 {{/each}}
 
 <br>
 {{>footer}}
+{{> backToArticles}}
 {{> backToArticleForm}}

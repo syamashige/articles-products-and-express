@@ -4,8 +4,16 @@
 <br>
 <p>{{body}}</p>
 <br>
-<a href="/articles/{{title}}/edit">EDIT</a>
+<a href="/articles/{{title}}/edit" id="editThis">
+<img src="/assets/edit-icon.png" width="40" height="40"  alt="edit-icon">
+</a>
 {{/with}}
+
+{{#with articles}}
+<form action="/articles/{{title}}?_method=DELETE" method="post">
+    <input type="submit" id="deleteButton" value="DELETE"> {{/with}}
+</form>
 
 {{>footer}}
 {{>backToArticles}}
+{{>backToArticleForm}}

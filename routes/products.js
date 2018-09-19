@@ -65,8 +65,12 @@ router.get('/:id/edit', (req, res) => {
 // PUT - Edit Products by ID
 router.put('/:id', (req, res) => {
     const { id } = req.params;
-    // knex.raw(`SELECT * FROM products WHERE id = ${id}, UPDATE products SET name = '${req.body.name}', price = '${req.body.price}', inventory = '${req.body.inventory}', description = '${req.body.description}'`)
+    // Got a syntax Error: 
+    // knex.raw(`SELECT * FROM products WHERE id = ${id} UPDATE products SET name = '${req.body.name}', price = '${req.body.price}', inventory = '${req.body.inventory}', description = '${req.body.description}'`)
+
+    // Updates everything in my products table as the new input
     // knex.raw(`UPDATE products SET name = '${req.body.name}', price = '${req.body.price}', inventory = '${req.body.inventory}e', description = '${req.body.description}'`)
+
     knex('products').where({ id: id }).update({
         name: req.body.name,
         price: req.body.price,

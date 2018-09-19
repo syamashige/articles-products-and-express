@@ -3,26 +3,57 @@ body{
     color: white;
     font-family: 'Poiret One', cursive;
 }
+/* 
+@font-face {
+    font-family: 'myPracticeFont';
+    src: url('/assets/PracticeFont.otf') format("opentype");
+} */
 
 h1{
+    /* font-family: 'myPracticeFont'; */
     text-align: center;
     font-size: 45px;
     text-shadow: 2px 5px darkgrey;
 }
 
+h2 {
+    text-decoration: none;
+    font-size: 40px;
+}
+
+h3 {
+    font-size: 30px;
+}
+
+p {
+    font-size: 20px;
+}
+
+#detailsPageContainer, #productsContainer, #articlesContainer {
+    margin-top: 5%;
+    text-align: center;
+}
+
+
+#productName {
+    color: white;
+    font-family: 'Poiret One', cursive;
+    text-decoration: none;
+}
+
 #prodLink, #articlesLink {
     text-decoration: none;
     color: white;
-    font-size: 30px;
+    font-size: 50px;
     text-shadow: 2px 5px darkgrey;
 }
 
-#createLink, #createArticle {
+/* #createLink, #createArticle {
     text-decoration: none;
     color: white;
     font-size: 30px;
     text-shadow: 2px 5px darkgrey;
-}
+} */
 
 
 #container{
@@ -33,31 +64,33 @@ h1{
     height: auto;
     width: 50%;
     border: 1px solid white; 
-    padding: 25% 10% 20% 10%;
+    /* border-radius: 50px; */
+    padding: 15% 5% 15% 5%;
     text-align: center;
 }
-#prodDiv{
+/* #prodDiv{
     background-image: url('/assets/abstract-blue2.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-}
+} */
 
-#createDiv {
+/* #createDiv {
     padding: 15% 10% 10% 10%; 
     background-image: url('/assets/abstract-blue3.png');
     background-size: cover;
     background-repeat: no-repeat;
-}
+} */
 
-#articleDiv {
+/* #articleDiv {
     background-image: url('/assets/abstract-blue.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-}
+} */
 
-.productName, .articleTitle {
+#productName, #articleTitle {
     color: white;
     text-decoration: none;
+    font-size: 35px;
 }
 
 #formBackground, #articleFormBackground{
@@ -115,26 +148,43 @@ input[type=text]{
     padding: 0.5% 1% 0.5% 1%;
     width: 50%;
     margin: 1%;
-
 }
+/* 
+input[type=submit]{
+    background: url('/assets/delete-icon.png');
+    height: 35px;
+    width: 35px;
+} */
 
-#footer, #backToProducts, #backToForms, #backToArticleForm, #backToArticles {
+ #backToProducts, #backToForms, #backToArticleForm, #backToArticles, #footer, #editThis {
     position: absolute;
-    top: 95%;
-    text-decoration: none;
-    background-color: black;
-    color: white;
-    font-size: 15px;
-    border: 2px solid white;
-    padding: 0.5%;
-    border-radius: 4px;
-    box-shadow: 2px 5px 5px darkgrey;
+    margin: auto;
+    top: 85%;
 }
 
-#backToProducts, #backToForms, #backToArticleForm, #backToArticles {
-    left: 12%;
+#footer{
+    left: 35%;
 }
 
-#articleTitle{
+#backToProducts, #backToArticles {
+    left: 45%;
+}
+
+#backToForms, #backToArticleForm {
+    left: 55%;
+}
+
+#editThis {
+    left: 65%;
+}
+
+#deleteButton {
+    position: absolute;
+    margin: auto;
+    top: 5%;
+    left: 90%;
+}
+
+/* #articleTitle{
     font-style: italic;
-}
+} */
