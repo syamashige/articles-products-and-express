@@ -1,0 +1,27 @@
+{{#with thisArticle}}
+<form action="/articles/{{title}}?_method=PUT" method="post" id="createArtForm">
+<label id="editTitleLabel">
+    TITLE:
+    <br>
+    <input type="text" name="title" id="editTitle" placeholder="{{title}}">
+</label>
+    <br>
+<label id="editAuthorLabel">
+    AUTHOR:
+    <br>
+    <input type="text" name="author" id="editAuthor" placeholder="{{author}}">
+</label>
+    <br>
+<label id="editBodyLabel">
+    BODY:
+    <br>
+    <input type="text" name="body" id="editBody" placeholder="{{body}}">
+</label>
+    <br>
+    <input type="submit" value"SUBMIT" className="submitButton"> {{/with}}
+</form>
+
+{{#with thisArticle}}
+<form action="/articles/{{title}}?_method=DELETE" method="post">
+    <input type="submit" class="deleteButton" value="DELETE"> {{/with}}
+</form>
