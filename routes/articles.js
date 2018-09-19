@@ -6,8 +6,6 @@ const knex = require('../knex/knex.js');
 router.get('/', (req, res) => {
     knex.raw('SELECT * FROM articles')
         .then(results => {
-            console.log("IZ GET ARTICLES??");
-            console.log('article results', results);
             const articles = results.rows;
             res.render('articles', { articles });
         })
@@ -46,6 +44,48 @@ router.get('/:title', (req, res) => {
         })
         .catch(err => {
             console.log('error getting articles by title', err);
+        })
+});
+
+// GET - Articles By Title Edit Form
+router.get('/:title/edit', (req, res) => {
+    const { title } = req.params;
+    knex.raw(`SELECT * FROM articles WHERE title = '${title}'`)
+        .then(results => {
+            let thisArticle = results.rows[0];
+            res.render('artEdit', { thisArticle });
+        })
+        .catch(err => {
+            console.log('error', err);
+        })
+});
+
+// PUT - Edit Articles by Title
+router.put('/:title', (req, res) => {
+    const { title } = req.params;
+    knex('articles').where({ 'title': `${title}` }).update({
+        title: req.body.title,
+        author: req.body.author,
+        body: req.body.body
+    })
+        .then(results => {
+            res.redirect(`/articles/'${title}'`)
+        })
+        .catch(err => {
+            console.log('error updating article', err);
+        })
+});
+
+// DELETE - Delete An Article
+router.delete('/:title', (req, res) => {
+    const { title } = req.params;
+    knex('articles').where({ 'title': title }).del()
+        .then(() => {
+            console.log('deleting this article', title )
+            res.redirect('/articles');
+        })
+        .catch(err => {
+            console.log('error deleting the articles', err);
     })
 })
 
