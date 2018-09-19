@@ -3,7 +3,7 @@ const router = express.Router();
 const knex = require('../knex/knex.js');
 
 // GET - Articles Page
-router.get('/articles', (req, res) => {
+router.get('/', (req, res) => {
     knex.raw('SELECT * FROM articles')
         .then(results => {
             console.log("IZ GET ARTICLES??");
@@ -17,19 +17,16 @@ router.get('/articles', (req, res) => {
 });
 
 // GET - Create New Articles Form
-router.get('/articles/new', (req, res) => {
+router.get('/new', (req, res) => {
     res.render('artForm')
 })
 
 // POST - New Articles 
-router.post('/articles/new', (req, res) => {
-    const { title, author, body } = req.body;
-    console.log('req.body', req.body);
-    console.log('title', title);
+router.post('/new', (req, res) => {
+    const { title } = req.params;
 
     knex.raw(`INSERT INTO articles (title, author, body) VALUES ('${req.body.title}', '${req.body.author}','${req.body.body}')`)
         .then(results => {
-            console.log('insert articles', results);
             res.redirect('/articles');
         })
         .catch(err => {
@@ -38,16 +35,13 @@ router.post('/articles/new', (req, res) => {
 });
 
 // GET - Get Articles by Title
-router.get('/articles/:title', (req, res) => {
-    console.log('get articles by title', req.params);
-    
-    knex.raw(`SELECT * FROM articles`)
+router.get('/:title', (req, res) => {
+    const { title } = req.params;
+    knex.raw(`SELECT * FROM articles WHERE title = '${title}'`)
         .then(results => {
-            const { title } = req.params;
-            // const { title } = req.body;
-            console.log('articles by id', title);
-            const articles = results.rows;
-            console.log('results.rows[title]', results.rows[title]);
+            console.log('Please results!', results)
+            console.log('articles title', title);
+            const articles = results.rows[0];
             res.render('artDetail', { articles });
         })
         .catch(err => {
