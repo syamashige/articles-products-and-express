@@ -98,13 +98,21 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
     const { id } = req.params;
     console.log('Deleting item at', id);
-    knex.raw(`DELETE FROM products WHERE id = ${id}`)
-        .then(results => {
-            res.redirect('/products');
+    // knex.raw(`DELETE FROM products WHERE id = ${id}`)
+    //     .then(results => {
+    //         res.redirect('/products');
+    //     })
+    //     .catch(err => {
+    //         console.log('Error in Deleting', err);
+    //     })
+    knex('products').where({ id: id }).del()
+        .then(() => {
+
+            res.redirect('/');
         })
         .catch(err => {
-            console.log('Error in Deleting', err);
-        })
+            console.log('error deleting the product', err);
+    })
 });
 
 module.exports = router;
