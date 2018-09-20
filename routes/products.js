@@ -2,18 +2,30 @@ const express = require('express');
 const router = express.Router();
 const knex = require('../knex/knex.js');
 
+// winston has to go in your individual route files
+const winston = require('winston');
+
+const logger = winston.createLogger({
+    level: 'info',
+    transports: [
+        new winston.transports.Console()
+    ]
+}); 
+
 
 
 // GET - Products Page
 router.get('/', (req, res) => {
     console.log("Hello?")
-    knex.raw('SELECT * FROM products')
+    knex.raw('SELECT * FROM products')  
         .then(results => {
+            logger.info('[put message here]');
             const products = results.rows
             res.render('products', { products })
         })
         .catch(err => {
-            console.log('error', err)
+            // console.log('error', err)
+            logger.error(er)
         })
 });
 
@@ -25,10 +37,12 @@ router.get('/new', (req, res) => {
 // GET Products by Id
 router.get('/:id', (req, res) => {
     const { id } = req.params;
-    knex.raw(`SELECT * FROM products`)
+    knex.raw(`SELECT * FROM products WHERE id = ${id}`)
         .then(results => {
-            const products = results.rows[(id)-1];
-            res.render('detail', { products });
+            const products = results.rows[0];
+            // const prodObj = {products: product}
+            // console.log('products', product)
+            res.render('detail', {products} );
         })
         .catch(err => {
             console.log('error getting product by id', err);

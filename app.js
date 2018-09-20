@@ -5,6 +5,8 @@ const methodOverride = require('method-override');
 const bp = require('body-parser');
 const exphbs = require('express-handlebars')
 
+const morgan = require('morgan');
+
 // Not using these anymore:
 // const Products = require('./db/products.js');
 // const DS_Prod = new Products();
@@ -17,6 +19,9 @@ const articleRouter = require('./routes/articles.js');
 
 
 app.use(express.static('public'));
+
+app.use(morgan('dev')); 
+
 
 app.use(bp.urlencoded({ extended: true }));
 
