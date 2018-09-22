@@ -17,8 +17,8 @@ const logger = winston.createLogger({
 // GET - Products Page
 router.get('/', (req, res) => {
     console.log("Hello?")
-    // knex.raw('SELECT * FROM products')  
-        knex.select().table('products').then(results => {
+    knex.raw('SELECT * FROM products')  
+        .then(results => {
             logger.info('[put message here]');
             const products = results.rows
             res.render('products', { products })
