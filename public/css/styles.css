@@ -1,7 +1,7 @@
 body{
     background-color: black;
     color: white;
-    font-family: 'Poiret One', cursive;
+    font-family: 'Hind Vadodara', sans-serif;
 }
 /* 
 @font-face {
@@ -14,11 +14,16 @@ body{
     src: url('/assets/DumbFont.otf') format('opentype');
 } */
 
+/* #mainTitle {
+    font-family: 'Marcellus', 
+} */
+
 h1{
     /* font-family: 'myPracticeFont'; */
+    font-family: 'Monoton', cursive;
     text-align: center;
-    font-size: 45px;
-    text-shadow: 2px 5px darkgrey;
+    font-size: 40px;
+    /* text-shadow: 2px 5px darkgrey; */
 }
 
 h2 {
@@ -53,6 +58,7 @@ p {
 }
 
 #prodLink, #articlesLink {
+    font-family: 'Monoton', cursive;
     text-decoration: none;
     color: white;
     font-size: 50px;

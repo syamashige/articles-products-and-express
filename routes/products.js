@@ -17,8 +17,8 @@ const logger = winston.createLogger({
 // GET - Products Page
 router.get('/', (req, res) => {
     console.log("Hello?")
-    knex.raw('SELECT * FROM products')  
-        .then(results => {
+    // knex.raw('SELECT * FROM products')  
+        knex.select().table('products').then(results => {
             logger.info('[put message here]');
             const products = results.rows
             res.render('products', { products })
@@ -38,10 +38,11 @@ router.get('/new', (req, res) => {
 router.get('/:id', (req, res) => {
     const { id } = req.params;
     knex.raw(`SELECT * FROM products WHERE id = ${id}`)
+    // knex('products').where({id: id})    
         .then(results => {
             const products = results.rows[0];
             // const prodObj = {products: product}
-            // console.log('products', product)
+           // console.log('products', product)
             res.render('detail', {products} );
         })
         .catch(err => {

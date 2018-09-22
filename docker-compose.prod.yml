@@ -4,3 +4,8 @@ services:
     image: syamashige/articles-products-and-express:${IMAGE_VERSION}
     environment:
       NODE_ENV: production
+
+  
+
+ 
+  
